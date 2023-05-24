@@ -14,6 +14,7 @@ const handleVariant = (variant: InputVariants) => {
 
 type StyledInputProps = {
   variant: InputVariants
+  isError?: boolean
 }
 
 export const StyledInput = styled.input<StyledInputProps>`
@@ -23,6 +24,12 @@ export const StyledInput = styled.input<StyledInputProps>`
   font-size: 14px;
   &:focus{
     outline-color: rgba(0, 0, 0, 0.1);
-}
+  }
+  ${({isError}) => isError && css`
+    border: 1px solid crimson;
+    &:focus {
+      outline-color: #fa98ac;
+    }
+  `}
   ${({variant}) => variant && handleVariant(variant)}
 `

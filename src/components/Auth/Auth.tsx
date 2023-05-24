@@ -7,6 +7,7 @@ import { RegisterForm } from "../Forms/RegisterForm";
 import { LoginForm } from "../Forms/LoginForm";
 import { Button } from "../Button";
 import { ButtonVariants } from "../Button/types";
+import { AiFillInstagram } from 'react-icons/ai'
 
 export const Auth = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false)
@@ -24,6 +25,7 @@ export const Auth = () => {
       </AnimationContainer>
       <FormWrapper>
         <FormContainer>
+          <AiFillInstagram />
           <FormHeader>
             <h1>Photogram</h1>
             <Typewriter

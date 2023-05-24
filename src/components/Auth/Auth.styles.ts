@@ -42,9 +42,19 @@ export const FormWrapper = styled.div`
 `
 
 export const FormContainer = styled.div`
+  position: relative;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 32px 16px;
   background-color: #fff;
+
+  svg {
+    position: absolute;
+    font-size: 64px;
+    color: #4192f4;
+    top: -35px;
+    right: 0px;
+    transform: rotate(20deg);
+  }
 
   @media(min-width: 992px){
     padding: 32px;
