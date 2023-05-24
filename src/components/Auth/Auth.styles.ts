@@ -45,6 +45,10 @@ export const FormContainer = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 32px 16px;
   background-color: #fff;
+
+  @media(min-width: 992px){
+    padding: 32px;
+  }
 `
 
 export const FormHeader = styled.div`
