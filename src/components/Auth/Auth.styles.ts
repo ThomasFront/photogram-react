@@ -11,7 +11,6 @@ export const Wrapper = styled.section`
 export const AnimationContainer = styled.div`
   display: none;
   width: 100%;
-  padding: 16px;
 
   .animation {
     width: 400px;

@@ -7,4 +7,6 @@ export enum ButtonVariants {
 
 export type ButtonProps = {
   variant?: ButtonVariants
+  isLoading?: boolean
+  loadingText?: string
 } & ButtonHTMLAttributes<HTMLButtonElement>

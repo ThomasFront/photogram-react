@@ -4,10 +4,10 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import authAnimation from '../../assets/animations/AuthAnimation.json'
 import { useState } from "react";
 import { RegisterForm } from "../Forms/RegisterForm";
-import { LoginForm } from "../Forms/LoginForm";
 import { Button } from "../Button";
 import { ButtonVariants } from "../Button/types";
 import { AiFillInstagram } from 'react-icons/ai'
+import { LogInForm } from "../Forms/LogInForm";
 
 export const Auth = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false)
@@ -37,7 +37,10 @@ export const Auth = () => {
               }}
             />
           </FormHeader>
-          {showRegisterForm ? <RegisterForm /> : <LoginForm />}
+          {showRegisterForm ?
+            <RegisterForm /> :
+            <LogInForm />
+          }
         </FormContainer>
         <NoAccountContainer>
           {showRegisterForm ?

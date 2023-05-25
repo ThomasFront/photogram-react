@@ -3,6 +3,7 @@ import { ButtonVariants } from "./types";
 
 type StyledButtonProps = {
   variant: ButtonVariants
+  isLoading?: boolean
 }
 
 const handleVariant = (variant: ButtonVariants) => {
@@ -38,5 +39,9 @@ const handleVariant = (variant: ButtonVariants) => {
 export const StyledButton = styled.button<StyledButtonProps>`
   cursor: pointer;
   border: none;
+  ${({isLoading}) => isLoading && css`
+    filter: grayscale(1);
+    cursor: not-allowed;
+  `}
   ${({variant}) => variant && handleVariant(variant)}
 `
