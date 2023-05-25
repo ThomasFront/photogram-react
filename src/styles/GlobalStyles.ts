@@ -1,6 +1,11 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
-export const GlobalStyles = createGlobalStyle`
+type GlobalThemeType = {
+  theme: typeof theme
+}
+
+export const GlobalStyles = createGlobalStyle<GlobalThemeType>`
   *,
   *::before,
   *::after {
@@ -10,7 +15,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    background-color: #FAFAFA;
+    color: ${({theme}) => theme.colors.black[100]};
+    background-color: ${({theme}) => theme.colors.black[10]};
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
   }

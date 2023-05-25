@@ -6,8 +6,8 @@ const handleVariant = (variant: InputVariants) => {
     case InputVariants.primary:
       default: 
       return css`
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        background-color: rgba(0, 0, 0, 0.05);
+        border: 1px solid ${({theme}) => theme.colors.black[20]};
+        background-color: ${({theme}) => theme.colors.black[10]};
       `
   }
 }
@@ -23,13 +23,14 @@ export const StyledInput = styled.input<StyledInputProps>`
   border-radius: 6px;
   font-size: 14px;
   &:focus{
-    outline-color: rgba(0, 0, 0, 0.1);
+    outline-color: ${({theme}) => theme.colors.black[20]};
   }
+  
+  ${({variant}) => variant && handleVariant(variant)}
   ${({isError}) => isError && css`
-    border: 1px solid crimson;
+    border: 1px solid ${({theme}) => theme.colors.info.error[100]};
     &:focus {
-      outline-color: #fa98ac;
+      outline-color: ${({theme}) => theme.colors.info.error[50]};
     }
   `}
-  ${({variant}) => variant && handleVariant(variant)}
 `

@@ -42,14 +42,14 @@ export const FormWrapper = styled.div`
 
 export const FormContainer = styled.div`
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${({theme}) => theme.colors.black[20]};
   padding: 32px 16px;
-  background-color: #fff;
+  background-color: ${({theme}) => theme.colors.pure['white']};
 
   svg {
     position: absolute;
     font-size: 64px;
-    color: #4192f4;
+    color: ${({theme}) => theme.colors.primary[100]};
     top: -35px;
     right: 0px;
     transform: rotate(20deg);
@@ -76,7 +76,7 @@ export const FormHeader = styled.div`
   }
 
   span {
-    color: rgba(0, 0, 0, 0.8);
+    color: ${({theme}) => theme.colors.black[60]};
     padding-bottom: 4px;
 
     @media(min-width: 820px){
@@ -86,9 +86,9 @@ export const FormHeader = styled.div`
 `
 
 export const NoAccountContainer = styled.div`
-  background-color: #fff;
+  background-color: ${({theme}) => theme.colors.pure['white']};
   padding: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${({theme}) => theme.colors.black[20]};
 
   div {
     display: flex;

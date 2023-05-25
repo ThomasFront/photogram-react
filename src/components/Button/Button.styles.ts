@@ -13,24 +13,24 @@ const handleVariant = (variant: ButtonVariants) => {
       return css`
         padding: 12px;
         font-size: 14px;
-        background-color: #4192f4;
+        background-color: ${({theme}) => theme.colors.primary[100]};
         border-radius: 6px;
-        color: #fff;
+        color: ${({theme}) => theme.colors.pure['white']};
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: #2f84ed;
+          background-color: ${({theme}) => theme.colors.primary[90]};
         }
       `
     case ButtonVariants.text:
       return css`
         background-color: transparent;
         font-size: 16px;
-        color: #4192f4;
+        color: ${({theme}) => theme.colors.primary[100]};
         transition: color 0.2s;
 
         &:hover {
-          color: #2f84ed;
+          color: ${({theme}) => theme.colors.primary[90]};
         }
       `
   }
