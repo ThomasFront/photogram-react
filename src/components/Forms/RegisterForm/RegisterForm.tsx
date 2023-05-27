@@ -10,6 +10,9 @@ import { useAppDispatch } from "../../../store/hooks";
 import { useSelector } from "react-redux";
 import { AuthErrors } from "../../../store/slices/userSlice/types";
 import { LoadingVariants } from "../../../types/common";
+import { MdAlternateEmail } from 'react-icons/md'
+import { RiKey2Fill } from 'react-icons/ri'
+import { ImUser } from 'react-icons/im'
 
 export const RegisterForm = () => {
   const dispatch = useAppDispatch()
@@ -18,7 +21,7 @@ export const RegisterForm = () => {
   const isLoading = loading === LoadingVariants.pending
 
   const schema = yup.object().shape({
-    nick: yup.string().required('Podaj swój nick.'),
+    nick: yup.string().required('Podaj nazwę użytkownika.'),
     email: yup.string().email('Podaj poprawny email.').required('Email jest wymagany.'),
     password: yup.string().required('Hasło jest wymagane.').min(6, 'Hasło musi zawierać min. 6 znaków.'),
   })
@@ -42,6 +45,7 @@ export const RegisterForm = () => {
           type="text"
           register={register}
           isError={!!errors.nick}
+          icon={<ImUser />}
         />
         {errors.nick?.message && <ErrorMessage>{errors.nick.message as string}</ErrorMessage>}
       </label>
@@ -52,6 +56,7 @@ export const RegisterForm = () => {
           type="text"
           register={register}
           isError={!!errors.email}
+          icon={<MdAlternateEmail />}
         />
 
         {errors.email?.message && <ErrorMessage>{errors.email.message as string}</ErrorMessage>}
@@ -63,6 +68,7 @@ export const RegisterForm = () => {
           type="password"
           register={register}
           isError={!!errors.password}
+          icon={<RiKey2Fill />}
         />
         {errors.password?.message && <ErrorMessage>{errors.password.message as string}</ErrorMessage>}
       </label>

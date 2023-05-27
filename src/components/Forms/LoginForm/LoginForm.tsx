@@ -10,6 +10,8 @@ import { errorsSelector, loadingsSelector, logInUser } from "../../../store/slic
 import { useSelector } from "react-redux";
 import { LoadingVariants } from "../../../types/common";
 import { AuthErrors } from "../../../store/slices/userSlice/types";
+import { MdAlternateEmail } from 'react-icons/md'
+import { RiKey2Fill } from 'react-icons/ri'
 
 export const LogInForm = () => {
   const dispatch = useAppDispatch()
@@ -41,6 +43,7 @@ export const LogInForm = () => {
           name="email"
           type="text"
           isError={!!errors.email}
+          icon={<MdAlternateEmail />}
         />
         {errors.email?.message && <ErrorMessage>{errors.email.message as string}</ErrorMessage>}
       </label>
@@ -51,6 +54,7 @@ export const LogInForm = () => {
           name="password"
           type="password"
           isError={!!errors.password}
+          icon={<RiKey2Fill />}
         />
         {errors.password?.message && <ErrorMessage>{errors.password.message as string}</ErrorMessage>}
       </label>

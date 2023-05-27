@@ -20,4 +20,9 @@ export const GlobalStyles = createGlobalStyle<GlobalThemeType>`
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
   }
+
+  a {
+    text-decoration: none;
+    color: ${({theme}) => theme.colors.black[100]};
+  }
 `

@@ -5,7 +5,7 @@ export const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   padding: 16px;
-  height: 100vh;
+  height: 97vh;
 `
 
 export const AnimationContainer = styled.div`
@@ -46,7 +46,7 @@ export const FormContainer = styled.div`
   padding: 32px 16px;
   background-color: ${({theme}) => theme.colors.pure['white']};
 
-  svg {
+  >svg {
     position: absolute;
     font-size: 64px;
     color: ${({theme}) => theme.colors.primary[100]};

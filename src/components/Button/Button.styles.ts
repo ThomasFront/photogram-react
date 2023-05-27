@@ -11,7 +11,7 @@ const handleVariant = (variant: ButtonVariants) => {
     case ButtonVariants.primary:
       default: 
       return css`
-        padding: 12px;
+        padding: 12px 24px;
         font-size: 14px;
         background-color: ${({theme}) => theme.colors.primary[100]};
         border-radius: 6px;

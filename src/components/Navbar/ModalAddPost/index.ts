@@ -1,0 +1,1 @@
+export { ModalAddPost } from './ModalAddPost'
