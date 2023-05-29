@@ -23,7 +23,7 @@ export const FileContainer = styled.div`
     display: none;
   }
 
-  span {
+  span:first-child {
     display: block;
     text-align: center;
     cursor: pointer;
@@ -45,9 +45,13 @@ export const TextareaContainer = styled.form`
 
 `
 
-export const FileName = styled.p`
+export const ImageName = styled.p`
   margin-top: 4px;
-  color: ${({theme}) => theme.colors.black[50]};
+  color: ${({theme}) => theme.colors.black[80]};
   font-size: 14px;
+  text-align: right;
+`
+
+export const ErrorContainer = styled.div`
   text-align: right;
 `

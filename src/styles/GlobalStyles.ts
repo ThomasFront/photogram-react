@@ -25,4 +25,8 @@ export const GlobalStyles = createGlobalStyle<GlobalThemeType>`
     text-decoration: none;
     color: ${({theme}) => theme.colors.black[100]};
   }
+
+  input, textarea {
+    font-family: 'Roboto', sans-serif;
+  }
 `
