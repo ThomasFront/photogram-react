@@ -1,5 +1,24 @@
 import { LoadingVariants, Nullable } from "../../../types/common"
 
+export type AddCommentType = {
+  newComments: Array<CommentType>
+  postId: string
+}
+
+export type CommentType = {
+  comment: string
+  commentId: string
+  username: string
+  userId: string
+}
+
+export type AddCommentArgType = {
+  comment: string
+  username: string
+  userId: string
+  postId: string
+}
+
 export type LikePostType = {
   userId: string
   postId: string
@@ -24,8 +43,8 @@ export type PostType = {
   postId: string
   username: string
   timestamp: number
-  comments: any
-  likes: any
+  comments: Array<CommentType>
+  likes: Array<string>
 }
 
 export type PostsState = {
@@ -34,10 +53,12 @@ export type PostsState = {
     addPost: LoadingVariants
     getPosts: LoadingVariants
     likePost: LoadingVariants
+    addCommentToPost: LoadingVariants
   }
   errors: {
     addPost: Nullable<string>
     getPosts: Nullable<string>
     likePost: Nullable<string>
+    addCommentToPost: Nullable<string>
   }
 }

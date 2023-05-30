@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { PostsState, AddPostArgType, PostType, LikePostType, LikePostArgType } from './type'
+import { PostsState, AddPostArgType, PostType, LikePostType, LikePostArgType, AddCommentType, CommentType, AddCommentArgType } from './type'
 import { LoadingVariants } from '../../../types/common'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../../../firebase/config'
@@ -13,11 +13,13 @@ const initialState: PostsState = {
     addPost: LoadingVariants.idle,
     getPosts: LoadingVariants.idle,
     likePost: LoadingVariants.idle,
+    addCommentToPost: LoadingVariants.idle,
   },
   errors: {
     addPost: null,
     getPosts: null,
     likePost: null,
+    addCommentToPost: null,
   }
 }
 
@@ -91,6 +93,36 @@ export const likePost = createAsyncThunk<LikePostArgType, LikePostType, {rejectV
   }
 )
 
+export const addCommentToPost = createAsyncThunk<AddCommentType, AddCommentArgType, {rejectValue: string}>(
+  'posts/addCommentToPost',
+  async({comment, userId, username, postId}, { rejectWithValue }) => {
+    try {
+      const commentId = uniqid()
+      const docRef = doc(db, "posts", postId);
+      const docSnap = await getDoc(docRef);
+      const postComments = docSnap.data()?.comments
+      const currentComments = [...postComments]
+      const commentData = {
+        comment,
+        commentId,
+        username,
+        userId,
+      }
+      currentComments.push(commentData)
+      await setDoc(docRef, {
+        ...docSnap.data(),
+        comments: currentComments
+      });
+      return {
+        newComments: currentComments,
+        postId,
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.code)
+    }
+  }
+)
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -135,6 +167,20 @@ export const postsSlice = createSlice({
     builder.addCase(likePost.rejected, (state, { payload }) => {
       state.errors.likePost = payload as string
       state.loadings.likePost = LoadingVariants.failed
+    })
+    builder.addCase(addCommentToPost.fulfilled, (state, {payload}) => {
+      const indexToEdit = state.posts.findIndex(({postId}) => postId === payload.postId)
+      state.posts[indexToEdit].comments = payload.newComments
+      state.errors.addCommentToPost = null
+      state.loadings.addCommentToPost = LoadingVariants.succeeded
+    })
+    builder.addCase(addCommentToPost.pending, (state) => {
+      state.errors.addCommentToPost = null
+      state.loadings.addCommentToPost = LoadingVariants.pending
+    })
+    builder.addCase(addCommentToPost.rejected, (state, { payload }) => {
+      state.errors.addCommentToPost = payload as string
+      state.loadings.addCommentToPost = LoadingVariants.failed
     })
   }
 })

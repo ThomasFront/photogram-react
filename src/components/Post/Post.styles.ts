@@ -30,7 +30,7 @@ export const PostDetails = styled.div`
     display: flex;
     flex-direction: column;
 
-    p {
+    a {
       font-weight: 500;
     }
 
@@ -53,6 +53,7 @@ export const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 
   @media(min-width: 768px){
@@ -63,7 +64,7 @@ export const ImageContainer = styled.div`
 export const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-size: 32px;
   padding: 8px 0;
 
@@ -87,7 +88,67 @@ export const OutlineHeartIcon = styled(AiOutlineHeart)`
 `
 
 export const CommentIcon = styled(AiOutlineComment)`
-  margin-bottom: 1px;
-
-  
+  margin-bottom: 1px; 
 `
+
+export const DescriptionContainer = styled.div`
+  display: flex;
+  align-items: start;
+
+  gap: 4px;
+  
+  p {
+    font-weight: 300;
+    word-break: break-all;
+  }
+
+  a {
+    font-weight: bold;
+  }
+`
+
+export const LikesAmount = styled.p`
+  font-weight: bold;
+  margin-bottom: 2px;
+`
+
+export const CommentsContainer = styled.div`
+  margin-bottom: 12px;
+
+  form {
+    display: flex;
+    margin-top: 8px;
+
+    >div {
+      width: 100%;
+    }
+
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+
+      &:focus {
+        outline: transparent;
+      }
+    }
+    
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  `
+
+  export const CommentsBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 4px;
+
+    button {
+      margin-top: 8px;
+      text-align: left;
+      font-size: 14px;
+      width: fit-content;
+    }
+  `

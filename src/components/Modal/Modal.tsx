@@ -5,10 +5,12 @@ import { ContentContainer, HeadingContainer, MainInformationContainer, Wrapper }
 import { ModalProps } from "./types"
 import { IoClose } from 'react-icons/io5'
 import useOnClickOutside from "../../hooks/useOnClickOutside"
+import useLockBodyScroll from "../../hooks/useLockBodyScroll"
 
 export const Modal = ({ children, heading, onClose }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null)
   useOnClickOutside(modalRef, onClose)
+  useLockBodyScroll(true, 'root')
 
   return (
     <Wrapper>
