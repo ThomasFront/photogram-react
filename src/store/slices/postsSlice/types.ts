@@ -1,4 +1,4 @@
-import { LoadingVariants, Nullable } from "../../../types/common"
+import { LoadingVariants, Nullable, UserType } from "../../../types/common"
 
 export type AddCommentType = {
   newComments: Array<CommentType>

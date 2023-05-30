@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { PostsState, AddPostArgType, PostType, LikePostType, LikePostArgType, AddCommentType, CommentType, AddCommentArgType } from './type'
+import { PostsState, AddPostArgType, PostType, LikePostType, LikePostArgType, AddCommentType, AddCommentArgType } from './types'
 import { LoadingVariants } from '../../../types/common'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../../../firebase/config'

@@ -1,4 +1,4 @@
-import { PostType } from "../../store/slices/postsSlice/type"
+import { PostType } from "../../store/slices/postsSlice/types"
 
 export type PostProps = {
   post: PostType

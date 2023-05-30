@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../../store' 
-import { LogInUserType, RegisterUserType, UserState, UserType } from './types'
+import { LogInUserType, RegisterUserType, UserState } from './types'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth, db } from '../../../firebase/config'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { LoadingVariants } from '../../../types/common'
+import { LoadingVariants, UserType } from '../../../types/common'
 
 const initialState: UserState = {
   user: null,

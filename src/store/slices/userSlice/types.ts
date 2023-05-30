@@ -1,10 +1,4 @@
-import { LoadingVariants, Nullable } from "../../../types/common";
-
-export type UserType = {
-  email: string
-  nick: string
-  uid: string
-}
+import { LoadingVariants, Nullable, UserType } from "../../../types/common";
 
 export type RegisterUserType = {
   email: string

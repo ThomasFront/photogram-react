@@ -1,4 +1,4 @@
-import { CommentType } from "../../../store/slices/postsSlice/type"
+import { CommentType } from "../../../store/slices/postsSlice/types"
 
 export type CommentProps = {
   commentData: CommentType

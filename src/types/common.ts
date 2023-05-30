@@ -6,3 +6,9 @@ export enum LoadingVariants {
   succeeded = 'succeeded',
   failed = 'failed'
 }
+
+export type UserType = {
+  email: string
+  nick: string
+  uid: string
+}
