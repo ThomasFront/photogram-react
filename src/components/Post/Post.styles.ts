@@ -19,6 +19,8 @@ export const PostDetails = styled.div`
     width: 26px;
     height: 26px;
     margin-top: 4px;
+    border-radius: 50%;
+    object-fit: cover;
 
     @media(min-width: 576px){
       width: 32px;
@@ -103,12 +105,12 @@ export const DescriptionContainer = styled.div`
   }
 
   a {
-    font-weight: bold;
+    font-weight: 500;
   }
 `
 
 export const LikesAmount = styled.p`
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 2px;
 `
 

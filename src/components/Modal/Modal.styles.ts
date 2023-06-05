@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  z-index: 100;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -20,7 +21,7 @@ export const HeadingContainer = styled.div`
   border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
 
   p {
-    font-weight: bold;
+    font-weight: 500;
     width: 100%;
     font-size: 18px;
   }

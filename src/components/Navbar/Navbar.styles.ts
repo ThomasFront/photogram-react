@@ -51,6 +51,8 @@ export const MenuContainer = styled.div`
     width: 26px;
     height: 26px;
     margin-top: 4px;
+    border-radius: 50%;
+    object-fit: cover;
 
     @media(min-width: 576px){
       width: 32px;

@@ -6,14 +6,18 @@ import { LogoContainer, MenuContainer, NavItemsWrapper, StyledNav } from "./Navb
 import { BsFillPlusCircleFill } from 'react-icons/bs'
 import { Link, useNavigate } from "react-router-dom"
 import userDefaultAvatar from '../../assets/images/userDefaultAvatar.png'
-import { useState } from "react"
-import { ModalAddPost } from "./ModalAddPost"
+import { useMemo, useState } from "react"
+import { AddPostModal } from "../Modal/AddPostModal"
 
 export const Navbar = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const user = useSelector(userSelector)
   const [showAddPostModal, setShowAddPostModal] = useState(false)
+
+  const userAvatar = useMemo(() => {
+    return user?.avatar
+  }, [user?.avatar])
 
   const handleLogOut = () => {
     dispatch(logOutUser())
@@ -23,7 +27,7 @@ export const Navbar = () => {
   return user ? (
     <>
       {showAddPostModal && (
-        <ModalAddPost
+        <AddPostModal
           onClose={() => setShowAddPostModal(false)}
         />
       )}
@@ -38,8 +42,11 @@ export const Navbar = () => {
             <BsFillPlusCircleFill
               onClick={() => setShowAddPostModal(true)}
             />
-            <Link to="/profile" >
-              <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+            <Link to={`/profile/${user.uid}`} >
+              {userAvatar ?
+                <img src={userAvatar} alt="Ikona użytkownika" />
+                : <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+              }
             </Link>
             <Button
               onClick={handleLogOut}

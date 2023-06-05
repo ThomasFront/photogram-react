@@ -10,6 +10,7 @@ export type CommentType = {
   commentId: string
   username: string
   userId: string
+  userAvatar: string
 }
 
 export type AddCommentArgType = {
@@ -17,6 +18,7 @@ export type AddCommentArgType = {
   username: string
   userId: string
   postId: string
+  userAvatar: string
 }
 
 export type LikePostType = {
@@ -34,6 +36,7 @@ export type AddPostArgType = {
   image: File
   userId: string
   username: string
+  userAvatar: string
 }
 
 export type PostType = {
@@ -45,6 +48,7 @@ export type PostType = {
   timestamp: number
   comments: Array<CommentType>
   likes: Array<string>
+  userAvatar?: string
 }
 
 export type PostsState = {

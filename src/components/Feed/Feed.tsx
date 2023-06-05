@@ -23,19 +23,28 @@ export const Feed = () => {
   return (
     <Wrapper>
       <PostsContainer>
-        {posts.map(post => <Post key={post.postId} post={post} />)}
+        {posts.length ?
+          posts.map(post => <Post key={post.postId} post={post} />) :
+          <p>Brak postów</p>
+        }
       </PostsContainer>
       <NewUsersContainer>
-        <UserInfo to="/">
-          <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+        <UserInfo to={`/profile/${user?.uid}`}>
+          {user?.avatar ?
+            <img src={user.avatar} alt="Ikona użytkownika" /> :
+            <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+          }
           <p>{user?.nick}</p>
         </UserInfo>
         <span>Nowi użytkownicy</span>
         <UsersBox>
-          {newUsers.map(({ uid, nick }) => (
+          {newUsers.map(({ uid, nick, avatar }) => (
             user?.uid !== uid && (
-              <Link key={uid} to="/">
-                <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+              <Link key={uid} to={`/profile/${uid}`}>
+                {avatar ?
+                  <img src={avatar} alt="Ikona użytkownika" /> :
+                  <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
+                }
                 <p>{nick}</p>
               </Link>
             )

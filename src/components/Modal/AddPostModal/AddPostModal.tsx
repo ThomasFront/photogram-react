@@ -1,9 +1,9 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { Button } from "../../Button"
-import { Modal } from "../../Modal"
+import { Modal } from ".."
 import { Textarea } from "../../Textarea"
-import { ErrorContainer, FileContainer, FormContainer, ImageName, TextareaContainer } from "./ModalAddPost.styles"
-import { ModalAddPostProps } from "./types"
+import { ErrorContainer, FileContainer, FormContainer, ImageName, TextareaContainer } from "./AddPostModal.styles"
+import { AddPostModalProps } from "./types"
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from "../../../styles/common"
@@ -15,7 +15,7 @@ import { userSelector } from "../../../store/slices/userSlice/userSlice"
 import { unwrapResult } from "@reduxjs/toolkit"
 import { LoadingVariants } from "../../../types/common"
 
-export const ModalAddPost = ({ onClose }: ModalAddPostProps) => {
+export const AddPostModal = ({ onClose }: AddPostModalProps) => {
   const dispatch = useAppDispatch()
   const user = useSelector(userSelector)
   const [fileName, setFileName] = useState("");
@@ -39,6 +39,7 @@ export const ModalAddPost = ({ onClose }: ModalAddPostProps) => {
         image,
         username: user?.nick,
         userId: user?.uid,
+        userAvatar: user.avatar ? user.avatar : ''
       })))
       if (results) {
         onClose()

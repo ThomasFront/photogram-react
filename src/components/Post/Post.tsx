@@ -16,10 +16,10 @@ import { Comment } from "./Comment";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../store/slices/userSlice/userSlice";
 import { ButtonVariants } from "../Button/types";
-import { CommentsModal } from "./CommentsModal";
+import { CommentsModal } from "../Modal/CommentsModal";
 
 export const Post = ({ post }: PostProps) => {
-  const { postId, username, image, description, timestamp, comments, likes } = post
+  const { postId, username, image, description, timestamp, comments, likes, userId, userAvatar } = post
   const user = useSelector(userSelector)
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
@@ -46,7 +46,8 @@ export const Post = ({ post }: PostProps) => {
         comment,
         username: user.nick,
         userId: user.uid,
-        postId
+        postId,
+        userAvatar: user.avatar ? user.avatar : ''
       }))
       reset()
       setLoading(false)
@@ -70,16 +71,20 @@ export const Post = ({ post }: PostProps) => {
           image={image}
           username={username}
           comments={comments}
+          likes={likes}
+          postId={postId}
+          description={description}
+          userId={userId}
         />
       )}
       <TopHeading>
         <PostDetails>
-          <img
-            src={userDefaultAvatar}
-            alt="Domyślne zdjęcie użytkownika."
-          />
+          {userAvatar ?
+            <img src={userAvatar} alt="Domyślna ikona użytkownika." /> :
+            <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
+          }
           <div>
-            <Link to="/">{username}</Link>
+            <Link to={`/profile/${userId}`}>{username}</Link>
             <span>{handleDateFormat(timestamp)}</span>
           </div>
         </PostDetails>
@@ -108,7 +113,7 @@ export const Post = ({ post }: PostProps) => {
         Liczba polubień: <span>{likes?.length}</span>
       </LikesAmount>
       <DescriptionContainer>
-        <Link to="/">{username} </Link>
+        <Link to={`/profile/${userId}`}>{username} </Link>
         {description}
       </DescriptionContainer>
       <CommentsContainer>
@@ -121,7 +126,7 @@ export const Post = ({ post }: PostProps) => {
                   variant={ButtonVariants.text}
                   onClick={() => setShowCommentsModal(true)}
                 >
-                  Zobacz wszystkie komentarze({comments.length})
+                  Zobacz wszystkie komentarze ({comments.length})
                 </Button>
               </> :
               <>

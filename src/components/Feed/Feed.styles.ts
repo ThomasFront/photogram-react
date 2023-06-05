@@ -20,6 +20,12 @@ export const PostsContainer = styled.div`
     border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
   }
   
+  >p {
+    font-size: 28px;
+    text-align: center;
+    margin-top: 48px;
+    color: ${({theme}) => theme.colors.black[60]};
+  }
 
   @media(min-width: 992px){
     width: 70%;
@@ -51,10 +57,12 @@ export const UserInfo = styled(Link)`
   img {
     width: 56px;
     height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   p {
-    font-weight: bold;
+    font-weight: 500;
   }
 `
 
@@ -66,6 +74,8 @@ export const UsersBox = styled.div`
   img {
     width: 32px;
     height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   a {

@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes } from "react"
 
 export enum ButtonVariants {
   primary = 'primary',
+  secondary = 'secondary',
   text = 'text'
 }
 

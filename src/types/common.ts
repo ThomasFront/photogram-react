@@ -11,4 +11,5 @@ export type UserType = {
   email: string
   nick: string
   uid: string
+  avatar?: string
 }

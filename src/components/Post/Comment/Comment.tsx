@@ -4,13 +4,16 @@ import { CommentProps } from "./types"
 import userDefaultAvatar from '../../../assets/images/userDefaultAvatar.png'
 
 export const Comment = ({ commentData }: CommentProps) => {
-  const { username, comment, commentId, userId } = commentData
+  const { username, comment, userId, userAvatar } = commentData
 
   return (
     <Wrapper>
       <div>
-        <img src={userDefaultAvatar} alt="Domyślne zdjęcie użytkownika." />
-        <Link to="/">{username} </Link>
+        {userAvatar ?
+          <img src={userAvatar} alt="Ikona użytkownika." /> :
+          <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
+        }
+        <Link to={`/profile/${userId}`}>{username} </Link>
       </div>
       <p>{comment}</p>
     </Wrapper>

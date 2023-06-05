@@ -11,6 +11,11 @@ export type LogInUserType = {
   password: string
 }
 
+export type ChangeUserAvatarType = {
+  userId: string
+  image: File
+}
+
 export type UserState = {
   user: Nullable<UserType>
   loadings: {
@@ -18,12 +23,14 @@ export type UserState = {
     logInUser: LoadingVariants
     logOutUser: LoadingVariants
     getUser: LoadingVariants
+    changeUserAvatar: LoadingVariants
   },
   errors: {
     registerUser: Nullable<string>
     logInUser: Nullable<string>
     logOutUser: Nullable<string>
     getUser: Nullable<string>
+    changeUserAvatar: Nullable<string>
   }
 }
 

@@ -25,7 +25,7 @@ const initialState: PostsState = {
 
 export const addPost = createAsyncThunk<PostType, AddPostArgType, {rejectValue: string}>(
   'posts/addPost',
-  async ({description, image, userId, username}, { rejectWithValue }) => {
+  async ({description, image, userId, username, userAvatar}, { rejectWithValue }) => {
     try {
       const postId = uniqid()
       const storageRef = ref(storage, `/posts/${userId}/${postId}`)
@@ -40,6 +40,7 @@ export const addPost = createAsyncThunk<PostType, AddPostArgType, {rejectValue: 
         postId,
         comments: [],
         likes: [],
+        userAvatar
       }
       await setDoc(doc(db, "posts", postId), postData);
       return postData
@@ -95,7 +96,7 @@ export const likePost = createAsyncThunk<LikePostArgType, LikePostType, {rejectV
 
 export const addCommentToPost = createAsyncThunk<AddCommentType, AddCommentArgType, {rejectValue: string}>(
   'posts/addCommentToPost',
-  async({comment, userId, username, postId}, { rejectWithValue }) => {
+  async({comment, userId, username, postId, userAvatar}, { rejectWithValue }) => {
     try {
       const commentId = uniqid()
       const docRef = doc(db, "posts", postId);
@@ -107,6 +108,7 @@ export const addCommentToPost = createAsyncThunk<AddCommentType, AddCommentArgTy
         commentId,
         username,
         userId,
+        userAvatar
       }
       currentComments.push(commentData)
       await setDoc(docRef, {

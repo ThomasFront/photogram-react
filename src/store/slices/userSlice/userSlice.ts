@@ -1,10 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../../store' 
-import { LogInUserType, RegisterUserType, UserState } from './types'
+import { ChangeUserAvatarType, LogInUserType, RegisterUserType, UserState } from './types'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { auth, db } from '../../../firebase/config'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { auth, db, storage } from '../../../firebase/config'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { LoadingVariants, UserType } from '../../../types/common'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 const initialState: UserState = {
   user: null,
@@ -13,12 +14,14 @@ const initialState: UserState = {
     logInUser: LoadingVariants.idle,
     logOutUser: LoadingVariants.idle,
     getUser: LoadingVariants.idle,
+    changeUserAvatar: LoadingVariants.idle,
   },
   errors: {
     registerUser: null,
     logInUser: null,
     logOutUser: null,
     getUser: null,
+    changeUserAvatar: null,
   }
 }
 
@@ -69,6 +72,25 @@ export const getUserFromDatabase = createAsyncThunk<UserType, string, { rejectVa
       const docRef = doc(db, "users", userUid);
       const docSnap = await getDoc(docRef);
       return docSnap.data() as UserType
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.code)
+    }
+  }
+)
+
+export const changeUserAvatar = createAsyncThunk<string, ChangeUserAvatarType, { rejectValue: string }>(
+  'user/changeUserAvatar',
+  async ({userId, image}, {rejectWithValue}) => {
+    try {
+      const storageRef = ref(storage, `/avatars/${userId}`)
+      await uploadBytes(storageRef, image);
+      const imageUrl = await getDownloadURL(storageRef)
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userRef, {
+        avatar: imageUrl
+      });
+      return imageUrl
     } catch (error: any) {
       console.log(error)
       return rejectWithValue(error.code)
@@ -134,6 +156,21 @@ export const userSlice = createSlice({
     builder.addCase(getUserFromDatabase.rejected, (state, { payload }) => {
       state.errors.getUser = payload as string
       state.loadings.getUser = LoadingVariants.failed
+    })
+    builder.addCase(changeUserAvatar.fulfilled, (state, { payload }) => {
+      if(state.user){
+        state.user.avatar = payload
+      }
+      state.errors.changeUserAvatar = null
+      state.loadings.changeUserAvatar = LoadingVariants.succeeded
+    })
+    builder.addCase(changeUserAvatar.pending, (state) => {
+      state.errors.changeUserAvatar = null
+      state.loadings.changeUserAvatar = LoadingVariants.pending
+    })
+    builder.addCase(changeUserAvatar.rejected, (state, { payload }) => {
+      state.errors.changeUserAvatar = payload as string
+      state.loadings.changeUserAvatar = LoadingVariants.failed
     })
   },
 })

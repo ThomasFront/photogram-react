@@ -5,4 +5,8 @@ export type PostModalProps = {
   username: string
   image: string
   comments: Array<CommentType>
+  likes: Array<string>
+  postId: string
+  description: string
+  userId: string
 }
