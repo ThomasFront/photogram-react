@@ -11,5 +11,6 @@ export type UserType = {
   email: string
   nick: string
   uid: string
+  registeredTimestamp: number
   avatar?: string
 }

@@ -1,6 +1,6 @@
 import { useParams } from "react-router"
 import { useAppDispatch } from "../../store/hooks"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { getSpecificUserDetails, specificUserSelector } from "../../store/slices/usersSlice/usersSlice"
 import { useSelector } from "react-redux"
 import { loadingsSelector } from "../../store/slices/usersSlice/usersSlice"
@@ -15,6 +15,8 @@ import { LoaderSpinner } from "../../components/Loading/LoaderSpinner"
 import { ErrorMessage, LoaderWrapper } from "../../styles/common"
 import { UserPost } from "./UserPost"
 import { EditProfileModal } from "../../components/Modal/EditProfileModal"
+import { format } from "date-fns"
+import { pl } from "date-fns/locale"
 
 export const ProfilePage = () => {
   const params = useParams()
@@ -27,6 +29,12 @@ export const ProfilePage = () => {
   const isLoading = getUserLoading === LoadingVariants.pending
   const dispatch = useAppDispatch()
   const postsAmount = specificUser?.userPosts.length
+
+  const registeredDate = useMemo(() => {
+    if (specificUser?.userDetails.registeredTimestamp) {
+      return format(specificUser?.userDetails.registeredTimestamp, 'd MMMM yyyy', { locale: pl })
+    }
+  }, [specificUser?.userDetails.registeredTimestamp])
 
   useEffect(() => {
     if (userId) {
@@ -63,6 +71,7 @@ export const ProfilePage = () => {
           </DetailsTop>
           <DetailsBottom>
             <p>Posty: <span>{postsAmount}</span></p>
+            <p>Zarejestrowany: <span>{registeredDate}</span></p>
           </DetailsBottom>
         </DetailsBox>
       </UserDetailsContainer>

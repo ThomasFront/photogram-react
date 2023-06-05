@@ -35,6 +35,7 @@ export const registerUser = createAsyncThunk<void, RegisterUserType, { rejectVal
         uid: user.uid,
         nick,
         email,
+        registeredTimestamp: Date.now()
       });
     } catch (error: any) {
       return rejectWithValue(error.code)
