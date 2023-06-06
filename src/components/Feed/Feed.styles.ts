@@ -85,3 +85,9 @@ export const UsersBox = styled.div`
     width: fit-content;
   }
 `
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 128px;
+`

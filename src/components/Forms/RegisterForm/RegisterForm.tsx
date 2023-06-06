@@ -21,7 +21,7 @@ export const RegisterForm = () => {
   const isLoading = loading === LoadingVariants.pending
 
   const schema = yup.object().shape({
-    nick: yup.string().required('Podaj nazwę użytkownika.'),
+    nick: yup.string().required('Podaj nazwę użytkownika.').min(3, 'Wpisz min. 3 znaki.').max(12, 'Nazwa użytkownika może zawierać max. 12 znaków.'),
     email: yup.string().email('Podaj poprawny email.').required('Email jest wymagany.'),
     password: yup.string().required('Hasło jest wymagane.').min(6, 'Hasło musi zawierać min. 6 znaków.'),
   })

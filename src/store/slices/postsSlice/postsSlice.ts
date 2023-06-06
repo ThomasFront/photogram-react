@@ -4,7 +4,7 @@ import { LoadingVariants } from '../../../types/common'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { db, storage } from '../../../firebase/config'
 import uniqid from 'uniqid';
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from 'firebase/firestore'
 import { RootState } from '../../store'
 
 const initialState: PostsState = {
@@ -14,12 +14,16 @@ const initialState: PostsState = {
     getPosts: LoadingVariants.idle,
     likePost: LoadingVariants.idle,
     addCommentToPost: LoadingVariants.idle,
+    getUsername: LoadingVariants.idle,
+    getUserAvatar: LoadingVariants.idle,
   },
   errors: {
     addPost: null,
     getPosts: null,
     likePost: null,
     addCommentToPost: null,
+    getUsername: null,
+    getUserAvatar: null,
   }
 }
 
@@ -33,7 +37,6 @@ export const addPost = createAsyncThunk<PostType, AddPostArgType, {rejectValue: 
       const imageUrl = await getDownloadURL(storageRef)
       const postData = {
         userId,
-        username,
         image: imageUrl,
         description,
         timestamp: Date.now(),
@@ -43,7 +46,10 @@ export const addPost = createAsyncThunk<PostType, AddPostArgType, {rejectValue: 
         userAvatar
       }
       await setDoc(doc(db, "posts", postId), postData);
-      return postData
+      return {
+        ...postData,
+        username
+      }
     } catch (error: any) {
       return rejectWithValue(error.code)
     }
@@ -54,17 +60,27 @@ export const getPosts = createAsyncThunk<Array<PostType>, void, {rejectValue: st
   'posts/getPosts',
   async(_, { rejectWithValue }) => {
     try {
-      const posts: Array<PostType> = []
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      querySnapshot.forEach((doc) => {
-        posts.unshift(doc.data() as PostType)
-      });
+      const posts: Array<PostType> = [];
+      const querySnapshot = await getDocs(query(collection(db, "posts"), orderBy('timestamp', 'desc')));
+
+      for (const postData of querySnapshot.docs) {
+        const userId = postData.data().userId;
+        const docRef = doc(db, "users", userId);
+        const docSnap = await getDoc(docRef);
+        const username = docSnap.data()?.nick;
+
+        posts.push({
+          ...postData.data() as PostType,
+          username
+        });
+      }
+
       return posts
     } catch (error: any) {
-      return rejectWithValue(error.code)
+      return rejectWithValue(error.code);
     }
   }
-)
+);
 
 export const likePost = createAsyncThunk<LikePostArgType, LikePostType, {rejectValue: string}>(
   'posts/likePost',
@@ -121,6 +137,37 @@ export const addCommentToPost = createAsyncThunk<AddCommentType, AddCommentArgTy
       }
     } catch (error: any) {
       return rejectWithValue(error.code)
+    }
+  }
+)
+
+export const getUsername = createAsyncThunk<string, string, {rejectValue: string}>(
+  'posts/getUsername',
+  async(userId, { rejectWithValue }) => {
+    try {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+      const username = docSnap.data()?.nick
+      return username
+    } catch (error: any) {
+      return rejectWithValue(error.code)
+    }
+  }
+)
+
+export const getUserAvatar = createAsyncThunk<string, string, {rejectValue: string}>(
+  'posts/getUserAvatar',
+  async(userId, { rejectWithValue }) => {
+    try {
+      const storageRef = ref(storage, `/avatars/${userId}`)
+      const imageUrl = await getDownloadURL(storageRef)
+      return imageUrl
+    } catch (error: any) {
+      if(error.code === 'storage/object-not-found'){
+        return ""
+      } else {
+        return rejectWithValue(error.code)
+      }
     }
   }
 )
@@ -183,6 +230,30 @@ export const postsSlice = createSlice({
     builder.addCase(addCommentToPost.rejected, (state, { payload }) => {
       state.errors.addCommentToPost = payload as string
       state.loadings.addCommentToPost = LoadingVariants.failed
+    })
+    builder.addCase(getUsername.fulfilled, (state) => {
+      state.errors.getUsername = null
+      state.loadings.getUsername = LoadingVariants.succeeded
+    })
+    builder.addCase(getUsername.pending, (state) => {
+      state.errors.getUsername = null
+      state.loadings.getUsername = LoadingVariants.pending
+    })
+    builder.addCase(getUsername.rejected, (state, { payload }) => {
+      state.errors.getUsername = payload as string
+      state.loadings.getUsername = LoadingVariants.failed
+    })
+    builder.addCase(getUserAvatar.fulfilled, (state) => {
+      state.errors.getUserAvatar = null
+      state.loadings.getUserAvatar = LoadingVariants.succeeded
+    })
+    builder.addCase(getUserAvatar.pending, (state) => {
+      state.errors.getUserAvatar = null
+      state.loadings.getUserAvatar = LoadingVariants.pending
+    })
+    builder.addCase(getUserAvatar.rejected, (state, { payload }) => {
+      state.errors.getUserAvatar = payload as string
+      state.loadings.getUserAvatar = LoadingVariants.failed
     })
   }
 })

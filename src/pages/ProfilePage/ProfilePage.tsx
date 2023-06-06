@@ -40,7 +40,7 @@ export const ProfilePage = () => {
     if (userId) {
       dispatch(getSpecificUserDetails(userId))
     }
-  }, [userId, user?.avatar])
+  }, [userId, user?.avatar, user?.nick])
 
   if (isError) return <ErrorMessage>Błąd pobierania danych użytkownika.</ErrorMessage>
   if (isLoading) return <LoaderWrapper><LoaderSpinner /></LoaderWrapper>

@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../../store' 
-import { ChangeUserAvatarType, LogInUserType, RegisterUserType, UserState } from './types'
+import { ChangeUserAvatarType, ChangeUsernameType, LogInUserType, RegisterUserType, UserState } from './types'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth, db, storage } from '../../../firebase/config'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
@@ -15,6 +15,7 @@ const initialState: UserState = {
     logOutUser: LoadingVariants.idle,
     getUser: LoadingVariants.idle,
     changeUserAvatar: LoadingVariants.idle,
+    changeUsername: LoadingVariants.idle,
   },
   errors: {
     registerUser: null,
@@ -22,6 +23,7 @@ const initialState: UserState = {
     logOutUser: null,
     getUser: null,
     changeUserAvatar: null,
+    changeUsername: null,
   }
 }
 
@@ -73,6 +75,22 @@ export const getUserFromDatabase = createAsyncThunk<UserType, string, { rejectVa
       const docRef = doc(db, "users", userUid);
       const docSnap = await getDoc(docRef);
       return docSnap.data() as UserType
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.code)
+    }
+  }
+)
+
+export const changeUsername = createAsyncThunk<string, ChangeUsernameType, { rejectValue: string }>(
+  'user/changeUsername',
+  async ({userUid, newUsername}, {rejectWithValue}) => {
+    try {
+      const userRef = doc(db, "users", userUid);
+      await updateDoc(userRef, {
+        nick: newUsername,
+      });
+      return newUsername
     } catch (error: any) {
       console.log(error)
       return rejectWithValue(error.code)
@@ -172,6 +190,21 @@ export const userSlice = createSlice({
     builder.addCase(changeUserAvatar.rejected, (state, { payload }) => {
       state.errors.changeUserAvatar = payload as string
       state.loadings.changeUserAvatar = LoadingVariants.failed
+    })
+    builder.addCase(changeUsername.fulfilled, (state, { payload }) => {
+      if(state.user){
+        state.user.nick = payload
+      }
+      state.errors.changeUsername = null
+      state.loadings.changeUsername = LoadingVariants.succeeded
+    })
+    builder.addCase(changeUsername.pending, (state) => {
+      state.errors.changeUsername = null
+      state.loadings.changeUsername = LoadingVariants.pending
+    })
+    builder.addCase(changeUsername.rejected, (state, { payload }) => {
+      state.errors.changeUsername = payload as string
+      state.loadings.changeUsername = LoadingVariants.failed
     })
   },
 })

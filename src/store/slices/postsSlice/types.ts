@@ -58,11 +58,15 @@ export type PostsState = {
     getPosts: LoadingVariants
     likePost: LoadingVariants
     addCommentToPost: LoadingVariants
+    getUsername: LoadingVariants
+    getUserAvatar: LoadingVariants
   }
   errors: {
     addPost: Nullable<string>
     getPosts: Nullable<string>
     likePost: Nullable<string>
     addCommentToPost: Nullable<string>
+    getUsername: Nullable<string>
+    getUserAvatar: Nullable<string>
   }
 }

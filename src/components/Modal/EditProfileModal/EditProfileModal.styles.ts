@@ -39,3 +39,7 @@ export const ButtonContainer = styled.div`
   margin-top: 24px;
   text-align: right;
 `
+
+export const UsernameContainer = styled.div`
+  margin-top: 32px;
+`
