@@ -21,6 +21,16 @@ export type ChangeUsernameType = {
   newUsername: string
 }
 
+export type FollowUserType = {
+  followers: Array<string>
+  followedBy: Array<string>
+}
+
+export type FollowUserArgsType = {
+  userUid: string,
+  followerUid: string
+}
+
 export type UserState = {
   user: Nullable<UserType>
   loadings: {
@@ -30,6 +40,7 @@ export type UserState = {
     getUser: LoadingVariants
     changeUserAvatar: LoadingVariants
     changeUsername: LoadingVariants
+    followUser: LoadingVariants
   },
   errors: {
     registerUser: Nullable<string>
@@ -38,6 +49,7 @@ export type UserState = {
     getUser: Nullable<string>
     changeUserAvatar: Nullable<string>
     changeUsername: Nullable<string>
+    followUser: Nullable<string>
   }
 }
 

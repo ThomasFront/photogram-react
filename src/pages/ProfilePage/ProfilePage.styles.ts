@@ -51,6 +51,9 @@ export const DetailsTop = styled.div`
 `
 
 export const DetailsBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 
   p {
     

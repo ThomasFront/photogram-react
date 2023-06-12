@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '../../store' 
-import { ChangeUserAvatarType, ChangeUsernameType, LogInUserType, RegisterUserType, UserState } from './types'
+import { ChangeUserAvatarType, ChangeUsernameType, FollowUserArgsType, FollowUserType, LogInUserType, RegisterUserType, UserState } from './types'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth, db, storage } from '../../../firebase/config'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
@@ -16,6 +16,7 @@ const initialState: UserState = {
     getUser: LoadingVariants.idle,
     changeUserAvatar: LoadingVariants.idle,
     changeUsername: LoadingVariants.idle,
+    followUser: LoadingVariants.idle,
   },
   errors: {
     registerUser: null,
@@ -24,6 +25,7 @@ const initialState: UserState = {
     getUser: null,
     changeUserAvatar: null,
     changeUsername: null,
+    followUser: null,
   }
 }
 
@@ -37,6 +39,8 @@ export const registerUser = createAsyncThunk<void, RegisterUserType, { rejectVal
         uid: user.uid,
         nick,
         email,
+        followers: [],
+        followedBy: [],
         registeredTimestamp: Date.now()
       });
     } catch (error: any) {
@@ -62,7 +66,6 @@ export const logOutUser = createAsyncThunk<void, void, {rejectValue: string}>(
     try {
       await signOut(auth);
     } catch (error: any) {
-      console.log(error)
       return rejectWithValue(error.code)
     }
   }
@@ -76,7 +79,6 @@ export const getUserFromDatabase = createAsyncThunk<UserType, string, { rejectVa
       const docSnap = await getDoc(docRef);
       return docSnap.data() as UserType
     } catch (error: any) {
-      console.log(error)
       return rejectWithValue(error.code)
     }
   }
@@ -92,7 +94,6 @@ export const changeUsername = createAsyncThunk<string, ChangeUsernameType, { rej
       });
       return newUsername
     } catch (error: any) {
-      console.log(error)
       return rejectWithValue(error.code)
     }
   }
@@ -111,7 +112,49 @@ export const changeUserAvatar = createAsyncThunk<string, ChangeUserAvatarType, {
       });
       return imageUrl
     } catch (error: any) {
-      console.log(error)
+      return rejectWithValue(error.code)
+    }
+  }
+)
+
+export const followUser = createAsyncThunk<FollowUserType, FollowUserArgsType, { rejectValue: string }>(
+  'user/followUser',
+  async ({userUid, followerUid}, {rejectWithValue}) => {
+    try {
+      const userRef = doc(db, "users", userUid);
+      const userDocSnap = await getDoc(userRef);
+      const followers = userDocSnap.data()?.followers
+
+      const followerRef = doc(db, "users", followerUid);
+      const followerDocSnap = await getDoc(followerRef);
+      const followedBy = followerDocSnap.data()?.followedBy
+      
+      if(!followers.includes(followerUid)){
+        followers.push(followerUid)
+        await updateDoc(userRef, {
+          followers
+        });
+        followedBy.push(userUid)
+        await updateDoc(followerRef, {
+          followedBy
+        });
+      } else {
+        const followerIndexToDelete = followers.findIndex((uid: string) => uid === followerUid)
+        followers.splice(followerIndexToDelete, 1)
+        await updateDoc(userRef, {
+          followers
+        });
+        const followedByIndexToDelete = followedBy.findIndex((uid: string) => uid === followerUid)
+        followedBy.splice(followedByIndexToDelete, 1)
+        await updateDoc(followerRef, {
+          followedBy
+        });
+      }
+      return {
+        followers,
+        followedBy
+      }
+    } catch (error: any) {
       return rejectWithValue(error.code)
     }
   }
@@ -205,6 +248,21 @@ export const userSlice = createSlice({
     builder.addCase(changeUsername.rejected, (state, { payload }) => {
       state.errors.changeUsername = payload as string
       state.loadings.changeUsername = LoadingVariants.failed
+    })
+    builder.addCase(followUser.fulfilled, (state, { payload }) => {
+      if(state.user){
+        state.user.followers = payload.followers
+      }
+      state.errors.followUser = null
+      state.loadings.followUser = LoadingVariants.succeeded
+    })
+    builder.addCase(followUser.pending, (state) => {
+      state.errors.followUser = null
+      state.loadings.followUser = LoadingVariants.pending
+    })
+    builder.addCase(followUser.rejected, (state, { payload }) => {
+      state.errors.followUser = payload as string
+      state.loadings.followUser = LoadingVariants.failed
     })
   },
 })

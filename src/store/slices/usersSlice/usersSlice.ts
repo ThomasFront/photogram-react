@@ -6,6 +6,7 @@ import { SpecificUserDetailsType, UsersState } from './types'
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase/config'
 import { PostType } from '../postsSlice/types'
+import { followUser } from '../userSlice/userSlice'
 
 const initialState: UsersState = {
   newUsers: [],
@@ -90,6 +91,11 @@ export const usersSlice = createSlice({
     builder.addCase(getSpecificUserDetails.rejected, (state, { payload }) => {
       state.errors.getSpecificUserDetails = payload as string
       state.loadings.getSpecificUserDetails = LoadingVariants.failed
+    })
+    builder.addCase(followUser.fulfilled, (state, { payload }) => {
+      if(state.specificUser) {
+        state.specificUser.userDetails.followedBy = payload.followedBy
+      }
     })
   },
 })

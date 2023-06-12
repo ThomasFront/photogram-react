@@ -12,5 +12,7 @@ export type UserType = {
   nick: string
   uid: string
   registeredTimestamp: number
+  followers: Array<string>,
+  followedBy: Array<string>,
   avatar?: string
 }

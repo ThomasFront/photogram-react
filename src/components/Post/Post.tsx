@@ -2,9 +2,9 @@ import { ActionsContainer, CommentIcon, CommentsBox, CommentsContainer, Descript
 import { PostProps } from "./types"
 import userDefaultAvatar from '../../assets/images/userDefaultAvatar.png'
 import { handleDateFormat } from "../../utils"
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
-import { addCommentToPost, likePost } from "../../store/slices/postsSlice/postsSlice";
+import { addCommentToPost, getUserAvatar, likePost } from "../../store/slices/postsSlice/postsSlice";
 import { Input } from "../Input";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
@@ -17,13 +17,15 @@ import { useSelector } from "react-redux";
 import { userSelector } from "../../store/slices/userSlice/userSlice";
 import { ButtonVariants } from "../Button/types";
 import { CommentsModal } from "../Modal/CommentsModal";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export const Post = ({ post }: PostProps) => {
-  const { postId, username, image, description, timestamp, comments, likes, userId, userAvatar } = post
+  const { postId, username, image, description, timestamp, comments, likes, userId } = post
   const user = useSelector(userSelector)
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
   const [showCommentsModal, setShowCommentsModal] = useState(false)
+  const [userAvatar, setUserAvatar] = useState("")
 
   const isLiked = useMemo(() => {
     if (likes) {
@@ -62,6 +64,16 @@ export const Post = ({ post }: PostProps) => {
       }))
     }
   }
+
+  const handleUserAvatar = async () => {
+    const payload = unwrapResult(await dispatch(getUserAvatar(userId)))
+    setUserAvatar(payload)
+  }
+
+  useEffect(() => {
+    handleUserAvatar()
+  }, [])
+
 
   return (
     <Wrapper>
