@@ -42,7 +42,7 @@ export const FormWrapper = styled.div`
 
 export const FormContainer = styled.div`
   position: relative;
-  border: 1px solid ${({theme}) => theme.colors.black[20]};
+  border: 1px solid ${({theme}) => theme.colors.text[20]};
   padding: 32px 16px;
   background-color: ${({theme}) => theme.colors.pure['white']};
 
@@ -69,6 +69,7 @@ export const FormHeader = styled.div`
   h1 {
     font-family: 'Copse', serif;
     font-size: 28px;
+    color: ${({theme}) => theme.colors.text[70]};
 
     @media(min-width: 820px){
       font-size: 36px;
@@ -76,7 +77,7 @@ export const FormHeader = styled.div`
   }
 
   span {
-    color: ${({theme}) => theme.colors.black[60]};
+    color: ${({theme}) => theme.colors.text[60]};
     padding-bottom: 4px;
 
     @media(min-width: 820px){
@@ -88,12 +89,16 @@ export const FormHeader = styled.div`
 export const NoAccountContainer = styled.div`
   background-color: ${({theme}) => theme.colors.pure['white']};
   padding: 16px;
-  border: 1px solid ${({theme}) => theme.colors.black[20]};
+  border: 1px solid ${({theme}) => theme.colors.text[20]};
 
   div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 4px;
+  }
+
+  span {
+    color: ${({theme}) => theme.colors.text[50]};
   }
 `

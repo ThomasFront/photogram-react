@@ -18,7 +18,7 @@ export const HeadingContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
+  border-bottom: 1px solid ${({theme}) => theme.colors.text[20]};
 
   p {
     font-weight: 500;
@@ -30,10 +30,10 @@ export const HeadingContainer = styled.div`
     cursor: pointer;
     transition: color 0.2s;
     font-size: 28px;
-    color: ${({theme}) => theme.colors.black[100]};
+    color: ${({theme}) => theme.colors.text[100]};
 
     &:hover {
-      color: ${({theme}) => theme.colors.black[70]};
+      color: ${({theme}) => theme.colors.text[70]};
     }
   }
 `
@@ -43,7 +43,7 @@ export const ContentContainer = styled.div`
   border-radius: 6px;
   max-width: 800px;
   width: 100%;
-  background-color: ${({theme}) => theme.colors.pure['white']};
+  background-color: ${({theme}) => theme.colors.text[10]};
 `
 
 export const MainInformationContainer = styled.div`

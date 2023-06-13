@@ -29,14 +29,14 @@ export const FileContainer = styled.div`
     cursor: pointer;
     padding: 12px 24px;
     font-size: 14px;
-    background-color: ${({theme}) => theme.colors.black[70]};
+    background-color: ${({theme}) => theme.colors.text[70]};
     border-radius: 6px;
     color: ${({theme}) => theme.colors.pure['white']};
     transition: background-color 0.2s;
     margin: 0 auto;
 
     &:hover {
-      background-color: ${({theme}) => theme.colors.black[60]};
+      background-color: ${({theme}) => theme.colors.text[60]};
     }
   }
 `
@@ -47,7 +47,7 @@ export const TextareaContainer = styled.form`
 
 export const ImageName = styled.p`
   margin-top: 4px;
-  color: ${({theme}) => theme.colors.black[80]};
+  color: ${({theme}) => theme.colors.text[80]};
   font-size: 14px;
   text-align: right;
 `

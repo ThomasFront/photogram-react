@@ -26,13 +26,13 @@ const handleVariant = (variant: ButtonVariants) => {
       return css`
         padding: 12px 24px;
         font-size: 14px;
-        background-color: ${({theme}) => theme.colors.black[20]};
+        background-color: ${({theme}) => theme.colors.text[20]};
         border-radius: 6px;
-        color: ${({theme}) => theme.colors.black[100]};
+        color: ${({theme}) => theme.colors.text[100]};
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: ${({theme}) => theme.colors.black[30]};
+          background-color: ${({theme}) => theme.colors.text[30]};
         }
       `
     case ButtonVariants.text:

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   }
 
   span {
-    color: ${({theme}) => theme.colors.black[50]};
+    color: ${({theme}) => theme.colors.text[50]};
     display: inline-block;
     margin: 8px 0;
   }
@@ -53,7 +53,7 @@ export const LikesContainer = styled.div`
   }
 
   span {
-    color: ${({theme}) => theme.colors.black[100]};
+    color: ${({theme}) => theme.colors.text[100]};
   }
 
   svg {
@@ -62,7 +62,7 @@ export const LikesContainer = styled.div`
     font-size: 32px;
 
     &:hover {
-      color: ${({theme}) => theme.colors.black[60]};
+      color: ${({theme}) => theme.colors.text[60]};
     }
   }
 `

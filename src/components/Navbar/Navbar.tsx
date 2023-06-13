@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useAppDispatch } from "../../store/hooks"
-import { logOutUser, userSelector } from "../../store/slices/userSlice/userSlice"
+import { setThemeMode, logOutUser, themeModeSelector, userSelector } from "../../store/slices/userSlice/userSlice"
 import { Button } from "../Button"
 import { LogoContainer, MenuContainer, NavItemsWrapper, StyledNav } from "./Navbar.styles"
 import { BsFillPlusCircleFill } from 'react-icons/bs'
@@ -8,12 +8,22 @@ import { Link, useNavigate } from "react-router-dom"
 import userDefaultAvatar from '../../assets/images/userDefaultAvatar.png'
 import { useMemo, useState } from "react"
 import { AddPostModal } from "../Modal/AddPostModal"
+import { DarkModeSwitch } from "react-toggle-dark-mode"
+import { ThemeModeVariants } from "../../types/common"
+import { useLocalStorage } from "../../hooks/useLocalStorage"
 
 export const Navbar = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const user = useSelector(userSelector)
+  const themeMode = useSelector(themeModeSelector)
   const [showAddPostModal, setShowAddPostModal] = useState(false)
+  const [isDarkTheme, setDarkTheme] = useLocalStorage('darkTheme', false)
+
+  const toggleTheme = () => {
+    dispatch(setThemeMode(themeMode === ThemeModeVariants.dark ? ThemeModeVariants.light : ThemeModeVariants.dark))
+    setDarkTheme(themeMode === ThemeModeVariants.dark ? false : true)
+  };
 
   const userAvatar = useMemo(() => {
     return user?.avatar
@@ -39,6 +49,11 @@ export const Navbar = () => {
             </Link>
           </LogoContainer>
           <MenuContainer>
+            <DarkModeSwitch
+              checked={themeMode === ThemeModeVariants.dark}
+              onChange={toggleTheme}
+              size={28}
+            />
             <BsFillPlusCircleFill
               onClick={() => setShowAddPostModal(true)}
             />

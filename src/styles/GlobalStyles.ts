@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
-import { theme } from "./theme";
+import { lightTheme } from "./theme";
 
 type GlobalThemeType = {
-  theme: typeof theme
+  theme: typeof lightTheme
 }
 
 export const GlobalStyles = createGlobalStyle<GlobalThemeType>`
@@ -15,18 +15,20 @@ export const GlobalStyles = createGlobalStyle<GlobalThemeType>`
   }
   
   body {
-    color: ${({theme}) => theme.colors.black[100]};
-    background-color: ${({theme}) => theme.colors.black[10]};
+    color: ${({theme}) => theme.colors.text[100]};
+    background-color: ${({theme}) => theme.colors.text[10]};
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
+    transition: background 0.2s ease-in, color 0.2s ease-in;
   }
 
   a {
     text-decoration: none;
-    color: ${({theme}) => theme.colors.black[100]};
+    color: ${({theme}) => theme.colors.text[100]};
   }
 
   input, textarea {
     font-family: 'Roboto', sans-serif;
+    color: ${({theme}) => theme.colors.fieldText[100]};
   }
 `

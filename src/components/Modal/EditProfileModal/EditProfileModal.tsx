@@ -99,7 +99,7 @@ export const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
             isLoading={isChangeAvatarLoading || isChangeUsernameLoading}
             loadingText="Aktualizacja..."
           >
-            Zakutalizuj
+            Zaktualizuj
           </Button>
         </ButtonContainer>
       </FormWrapper>

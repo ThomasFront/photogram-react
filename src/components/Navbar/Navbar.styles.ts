@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyledNav = styled.nav`
-  border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
-  background-color: ${({theme}) => theme.colors.pure['white']};
+  border-bottom: 1px solid ${({theme}) => theme.colors.text[20]};
+  background-color: ${({theme}) => theme.colors.text[0]};
 `
 
 export const NavItemsWrapper = styled.div`
@@ -36,14 +36,14 @@ export const MenuContainer = styled.div`
     font-size: 24px;
     cursor: pointer;
     transition: color 0.2s;
-    color: ${({theme}) => theme.colors.black[90]};
+    color: ${({theme}) => theme.colors.text[90]};
 
     @media(min-width: 576px){
       font-size: 30px;
     }
 
     &:hover {
-      color: ${({theme}) => theme.colors.black[70]};
+      color: ${({theme}) => theme.colors.text[70]};
     }
   }
 

@@ -7,6 +7,11 @@ export enum LoadingVariants {
   failed = 'failed'
 }
 
+export enum ThemeModeVariants {
+  light = 'light',
+  dark = 'dark',
+}
+
 export type UserType = {
   email: string
   nick: string

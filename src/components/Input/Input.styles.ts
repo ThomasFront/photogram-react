@@ -6,8 +6,8 @@ const handleVariant = (variant: InputVariants) => {
     case InputVariants.primary:
       default: 
       return css`
-        border: 1px solid ${({theme}) => theme.colors.black[20]};
-        background-color: ${({theme}) => theme.colors.black[10]};
+        border: 1px solid ${({theme}) => theme.colors.text[20]};
+        background-color: ${({theme}) => theme.colors.text[10]};
       `
   }
 }
@@ -29,7 +29,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
       top: 50%;
       transform: translateY(-50%);
       left: 10px;
-      color: ${({theme}) => theme.colors.black[100]};
+      color: ${({theme}) => theme.colors.text[100]};
     }
 
     input {
@@ -44,7 +44,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   border-radius: 6px;
   font-size: 14px;
   &:focus{
-    outline-color: ${({theme}) => theme.colors.black[20]};
+    outline-color: ${({theme}) => theme.colors.text[20]};
   }
   ${({variant}) => variant && handleVariant(variant)}
   ${({isError}) => isError && css`

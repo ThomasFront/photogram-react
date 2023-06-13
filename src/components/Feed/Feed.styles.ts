@@ -17,14 +17,14 @@ export const PostsContainer = styled.div`
   gap: 16px;
 
   article:not(:last-child){
-    border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
+    border-bottom: 1px solid ${({theme}) => theme.colors.text[20]};
   }
   
   >p {
     font-size: 28px;
     text-align: center;
     margin-top: 48px;
-    color: ${({theme}) => theme.colors.black[60]};
+    color: ${({theme}) => theme.colors.text[60]};
   }
 
   @media(min-width: 992px){
@@ -44,7 +44,7 @@ export const NewUsersContainer = styled.aside`
     height: fit-content;
 
     span {
-      color: ${({theme}) => theme.colors.black[50]};
+      color: ${({theme}) => theme.colors.text[50]};
     }
   }
 `

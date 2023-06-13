@@ -1,4 +1,4 @@
-import { LoadingVariants, Nullable, UserType } from "../../../types/common";
+import { LoadingVariants, Nullable, ThemeModeVariants, UserType } from "../../../types/common";
 
 export type RegisterUserType = {
   email: string
@@ -33,6 +33,7 @@ export type FollowUserArgsType = {
 
 export type UserState = {
   user: Nullable<UserType>
+  themeMode: ThemeModeVariants,
   loadings: {
     registerUser: LoadingVariants
     logInUser: LoadingVariants

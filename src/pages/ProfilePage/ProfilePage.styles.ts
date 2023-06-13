@@ -10,7 +10,7 @@ export const UserDetailsContainer = styled.div`
   justify-content: center;
   gap: 32px;
   padding-bottom: 48px;
-  border-bottom: 1px solid ${({theme}) => theme.colors.black[20]};
+  border-bottom: 1px solid ${({theme}) => theme.colors.text[20]};
   
   img {
     width: 100px;
@@ -79,5 +79,5 @@ export const NoPostsInformation = styled.p`
   margin-top: 64px;
   text-align: center;
   font-size: 20px;
-  color: ${({theme}) => theme.colors.black[60]};
+  color: ${({theme}) => theme.colors.text[60]};
 `

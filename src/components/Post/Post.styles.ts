@@ -37,7 +37,7 @@ export const PostDetails = styled.div`
     }
 
     span {
-      color: ${({theme}) => theme.colors.black[40]};
+      color: ${({theme}) => theme.colors.fieldText[100]};
       font-weight: 300;
       font-size: 14px;
       
@@ -75,7 +75,7 @@ export const ActionsContainer = styled.div`
     transition: color 0.2s;
 
     &:hover {
-      color: ${({theme}) => theme.colors.black[60]};
+      color: ${({theme}) => theme.colors.text[60]};
     }
   }
 `

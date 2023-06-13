@@ -5,11 +5,11 @@ export const StyledTextarea = styled.textarea`
   width: 100%;
   border-radius: 6px;
   font-size: 14px;
-  border: 1px solid ${({theme}) => theme.colors.black[20]};
-  background-color: ${({theme}) => theme.colors.black[10]};
+  border: 1px solid ${({theme}) => theme.colors.text[20]};
+  background-color: ${({theme}) => theme.colors.text[10]};
   resize: none;
   min-height: 200px;
   &:focus{
-    outline-color: ${({theme}) => theme.colors.black[20]};
+    outline-color: ${({theme}) => theme.colors.text[20]};
   }
 `

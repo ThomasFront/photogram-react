@@ -4,11 +4,12 @@ import { ChangeUserAvatarType, ChangeUsernameType, FollowUserArgsType, FollowUse
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth, db, storage } from '../../../firebase/config'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import { LoadingVariants, UserType } from '../../../types/common'
+import { LoadingVariants, ThemeModeVariants, UserType } from '../../../types/common'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 const initialState: UserState = {
   user: null,
+  themeMode: ThemeModeVariants.light,
   loadings: {
     registerUser: LoadingVariants.idle,
     logInUser: LoadingVariants.idle,
@@ -166,6 +167,9 @@ export const userSlice = createSlice({
   reducers: {
     setUserData: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload
+    },
+    setThemeMode: (state, action: PayloadAction<ThemeModeVariants>) => {
+      state.themeMode = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -267,8 +271,9 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUserData } = userSlice.actions 
+export const { setUserData, setThemeMode } = userSlice.actions 
 export const userSelector = (state: RootState) => state.user.user
 export const errorsSelector = (state: RootState) => state.user.errors
 export const loadingsSelector = (state: RootState) => state.user.loadings
+export const themeModeSelector = (state: RootState) => state.user.themeMode
 export default userSlice.reducer
