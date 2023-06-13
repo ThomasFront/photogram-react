@@ -61,6 +61,16 @@ export const DetailsBottom = styled.div`
       font-weight: 500;
     }
   }
+
+  p:nth-child(2),
+  p:nth-child(3){
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${({theme}) => theme.colors.text[50]};
+    }
+  }
 `
 
 export const PostsContainer = styled.div`

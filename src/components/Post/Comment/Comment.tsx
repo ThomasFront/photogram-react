@@ -31,10 +31,12 @@ export const Comment = ({ commentData }: CommentProps) => {
   return (
     <Wrapper>
       <div>
-        {userAvatar ?
-          <img src={userAvatar} alt="Ikona użytkownika." /> :
-          <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
-        }
+        <Link to={`/profile/${userId}`}>
+          {userAvatar ?
+            <img src={userAvatar} alt="Ikona użytkownika." /> :
+            <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
+          }
+        </Link>
         <Link to={`/profile/${userId}`}>{username}</Link>
       </div>
       <p>{comment}</p>

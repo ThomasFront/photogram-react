@@ -18,6 +18,7 @@ import { userSelector } from "../../store/slices/userSlice/userSlice";
 import { ButtonVariants } from "../Button/types";
 import { CommentsModal } from "../Modal/CommentsModal";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { UserListModal } from "../Modal/UserListModal";
 
 export const Post = ({ post }: PostProps) => {
   const { postId, username, image, description, timestamp, comments, likes, userId } = post
@@ -26,6 +27,7 @@ export const Post = ({ post }: PostProps) => {
   const [loading, setLoading] = useState(false)
   const [showCommentsModal, setShowCommentsModal] = useState(false)
   const [userAvatar, setUserAvatar] = useState("")
+  const [showLikes, setShowLikes] = useState(false)
 
   const isLiked = useMemo(() => {
     if (likes) {
@@ -74,7 +76,6 @@ export const Post = ({ post }: PostProps) => {
     handleUserAvatar()
   }, [])
 
-
   return (
     <Wrapper>
       {showCommentsModal && (
@@ -89,12 +90,21 @@ export const Post = ({ post }: PostProps) => {
           userId={userId}
         />
       )}
+      {showLikes && (
+        <UserListModal
+          onClose={() => setShowLikes(false)}
+          userList={likes}
+          heading="Wszystkie polubienia"
+        />
+      )}
       <TopHeading>
         <PostDetails>
-          {userAvatar ?
-            <img src={userAvatar} alt="Domyślna ikona użytkownika." /> :
-            <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
-          }
+          <Link to={`/profile/${userId}`}>
+            {userAvatar ?
+              <img src={userAvatar} alt="Domyślna ikona użytkownika." /> :
+              <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
+            }
+          </Link>
           <div>
             <Link to={`/profile/${userId}`}>{username}</Link>
             <span>{handleDateFormat(timestamp)}</span>
@@ -121,7 +131,9 @@ export const Post = ({ post }: PostProps) => {
           onClick={() => setShowCommentsModal(true)}
         />
       </ActionsContainer>
-      <LikesAmount>
+      <LikesAmount
+        onClick={() => setShowLikes(true)}
+      >
         Liczba polubień: <span>{likes?.length}</span>
       </LikesAmount>
       <DescriptionContainer>

@@ -112,6 +112,13 @@ export const DescriptionContainer = styled.div`
 export const LikesAmount = styled.p`
   font-weight: 500;
   margin-bottom: 2px;
+  cursor: pointer;
+  transition: color 0.2s;
+  width: fit-content;
+
+  &:hover {
+    color: ${({theme}) => theme.colors.text[50]};
+  }
 `
 
 export const CommentsContainer = styled.div`

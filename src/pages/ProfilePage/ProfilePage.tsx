@@ -20,6 +20,7 @@ import { format } from "date-fns"
 import { pl } from "date-fns/locale"
 import { ProfileSkeleton } from "../../components/Loading/ProfileSkeleton"
 import { postsSelector } from "../../store/slices/postsSlice/postsSlice"
+import { UserListModal } from "../../components/Modal/UserListModal"
 
 export const ProfilePage = () => {
   const params = useParams()
@@ -36,6 +37,8 @@ export const ProfilePage = () => {
   const dispatch = useAppDispatch()
   const postsAmount = specificUser?.userPosts.length
   const posts = useSelector(postsSelector)
+  const [showFollowers, setShowFollowers] = useState(false)
+  const [showFollowedBy, setShowFollowedBy] = useState(false)
 
   const isFollowed = useMemo(() => {
     if (user?.uid) {
@@ -74,6 +77,20 @@ export const ProfilePage = () => {
           onClose={() => setShowEditProfileModal(false)}
         />
       )}
+      {showFollowers && (
+        <UserListModal
+          onClose={() => setShowFollowers(false)}
+          userList={specificUser?.userDetails.followers || []}
+          heading={`Obserwowani przez ${specificUser?.userDetails.nick}`}
+        />
+      )}
+      {showFollowedBy && (
+        <UserListModal
+          onClose={() => setShowFollowedBy(false)}
+          userList={specificUser?.userDetails.followedBy || []}
+          heading={`Obserwujący ${specificUser?.userDetails.nick}`}
+        />
+      )}
       <UserDetailsContainer>
         {specificUser?.userDetails.avatar ?
           <img src={specificUser?.userDetails.avatar} alt="Ikona użytkownika" />
@@ -103,8 +120,8 @@ export const ProfilePage = () => {
           {followUserError && <ErrorMessage>Błąd obserwacji użytkownika.</ErrorMessage>}
           <DetailsBottom>
             <p>Posty: <span>{postsAmount}</span></p>
-            <p>Obserwowani: <span>{specificUser?.userDetails.followers.length}</span></p>
-            <p>Obserwujących: <span>{specificUser?.userDetails.followedBy.length}</span></p>
+            <p onClick={() => setShowFollowers(true)}>Obserwowani: <span>{specificUser?.userDetails.followers.length}</span></p>
+            <p onClick={() => setShowFollowedBy(true)}>Obserwujących: <span>{specificUser?.userDetails.followedBy.length}</span></p>
             <p>Zarejestrowany: <span>{registeredDate}</span></p>
           </DetailsBottom>
         </DetailsBox>
