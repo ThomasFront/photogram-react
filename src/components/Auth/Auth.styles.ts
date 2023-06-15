@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
@@ -32,7 +33,7 @@ export const AnimationContainer = styled.div`
   }
 `
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   width: 100%;

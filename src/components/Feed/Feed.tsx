@@ -13,6 +13,7 @@ import { LoadingVariants, ThemeModeVariants } from "../../types/common"
 import 'react-loading-skeleton/dist/skeleton.css'
 import { PostSkeleton } from "../Loading/PostSkeleton"
 import Skeleton from "react-loading-skeleton"
+import { motion } from "framer-motion"
 
 export const Feed = () => {
   const themeMode = useSelector(themeModeSelector)
@@ -57,16 +58,23 @@ export const Feed = () => {
         <UsersBox>
           {newUsersLoading ?
             <Skeleton count={5} height={30} baseColor={isDarkMode ? "#202020" : "#ebebeb"} highlightColor={isDarkMode ? "#444" : "#f5f5f5"} /> :
-            newUsers.map(({ uid, nick, avatar }) => (
+            newUsers.map(({ uid, nick, avatar }, index) => (
               user?.uid !== uid && (
-                <Link key={uid} to={`/profile/${uid}`}>
-                  <img
-                    src={avatar ? avatar : userDefaultAvatar}
-                    alt="Ikona użytkownika"
-                    loading="lazy"
-                  />
-                  <p>{nick}</p>
-                </Link>
+                <motion.div
+                  initial={{ opacity: 0, y: -50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Link key={uid} to={`/profile/${uid}`}>
+                    <img
+                      src={avatar ? avatar : userDefaultAvatar}
+                      alt="Ikona użytkownika"
+                      loading="lazy"
+                    />
+                    <p>{nick}</p>
+                  </Link>
+                </motion.div>
               )
             ))
           }

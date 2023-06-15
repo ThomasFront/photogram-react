@@ -23,7 +23,12 @@ export const Auth = () => {
         >
         </Player>
       </AnimationContainer>
-      <FormWrapper>
+      <FormWrapper
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+      >
         <FormContainer>
           <AiFillInstagram />
           <FormHeader>

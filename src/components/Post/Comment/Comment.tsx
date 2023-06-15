@@ -29,7 +29,11 @@ export const Comment = ({ commentData }: CommentProps) => {
   }, [])
 
   return (
-    <Wrapper>
+    <Wrapper
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 }}
+    >
       <div>
         <Link to={`/profile/${userId}`}>
           <img

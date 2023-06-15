@@ -13,9 +13,14 @@ export const Modal = ({ children, heading, onClose }: ModalProps) => {
   useLockBodyScroll(true, 'root')
 
   return (
-    <Wrapper>
+    <Wrapper
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <ContentContainer
         ref={modalRef}
+        initial={{ zoom: 0 }}
+        animate={{ zoom: 1 }}
       >
         <HeadingContainer>
           <p>{heading}</p>

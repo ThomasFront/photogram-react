@@ -77,7 +77,7 @@ export const Post = ({ post }: PostProps) => {
   }, [])
 
   return (
-    <Wrapper>
+    <>
       {showCommentsModal && (
         <CommentsModal
           onClose={() => setShowCommentsModal(false)}
@@ -97,86 +97,93 @@ export const Post = ({ post }: PostProps) => {
           heading="Wszystkie polubienia"
         />
       )}
-      <TopHeading>
-        <PostDetails>
-          <Link to={`/profile/${userId}`}>
-            <img
-              src={userAvatar ? userAvatar : userDefaultAvatar}
-              alt="Domyślna ikona użytkownika."
-              loading="lazy"
-            />
-          </Link>
-          <div>
-            <Link to={`/profile/${userId}`}>{username}</Link>
-            <span>{handleDateFormat(timestamp)}</span>
-          </div>
-        </PostDetails>
-      </TopHeading>
-      <ImageContainer>
-        <img
-          src={image}
-          alt={`Zdjęcie posta od użytkownika ${username}.`}
-          onClick={() => setShowCommentsModal(true)}
-          loading="lazy"
-        />
-      </ImageContainer>
-      <ActionsContainer>
-        {isLiked ?
-          <FillHeartIcon
-            onClick={handleLikePost}
-          /> :
-          <OutlineHeartIcon
-            onClick={handleLikePost}
-          />
-        }
-        <CommentIcon
-          onClick={() => setShowCommentsModal(true)}
-        />
-      </ActionsContainer>
-      <LikesAmount
-        onClick={() => setShowLikes(true)}
+      <Wrapper
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
       >
-        Liczba polubień: <span>{likes?.length}</span>
-      </LikesAmount>
-      <DescriptionContainer>
-        <Link to={`/profile/${userId}`}>{username} </Link>
-        {description}
-      </DescriptionContainer>
-      <CommentsContainer>
-        {!!comments.length && (
-          <CommentsBox>
-            {comments.length >= 5 ?
-              <>
-                {comments.slice(comments.length - 5, comments.length).map(comment => <Comment key={comment.commentId} commentData={comment} />)}
-                <Button
-                  variant={ButtonVariants.text}
-                  onClick={() => setShowCommentsModal(true)}
-                >
-                  Zobacz wszystkie komentarze ({comments.length})
-                </Button>
-              </> :
-              <>
-                {comments.map(comment => <Comment key={comment.commentId} commentData={comment} />)}
-              </>
-            }
-          </CommentsBox>
-        )}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Dodaj komentarz"
-            register={register}
-            name="comment"
-            isError={!!errors.comment?.message}
+        <TopHeading>
+          <PostDetails>
+            <Link to={`/profile/${userId}`}>
+              <img
+                src={userAvatar ? userAvatar : userDefaultAvatar}
+                alt="Domyślna ikona użytkownika."
+                loading="lazy"
+              />
+            </Link>
+            <div>
+              <Link to={`/profile/${userId}`}>{username}</Link>
+              <span>{handleDateFormat(timestamp)}</span>
+            </div>
+          </PostDetails>
+        </TopHeading>
+        <ImageContainer>
+          <img
+            src={image}
+            alt={`Zdjęcie posta od użytkownika ${username}.`}
+            onClick={() => setShowCommentsModal(true)}
+            loading="lazy"
           />
-          <Button
-            isLoading={loading}
-            loadingText="Dodaj"
-          >
-            Dodaj
-          </Button>
-        </form>
-        {errors.comment?.message && <ErrorMessage>{errors.comment.message as string}</ErrorMessage>}
-      </CommentsContainer>
-    </Wrapper>
+        </ImageContainer>
+        <ActionsContainer>
+          {isLiked ?
+            <FillHeartIcon
+              onClick={handleLikePost}
+            /> :
+            <OutlineHeartIcon
+              onClick={handleLikePost}
+            />
+          }
+          <CommentIcon
+            onClick={() => setShowCommentsModal(true)}
+          />
+        </ActionsContainer>
+        <LikesAmount
+          onClick={() => setShowLikes(true)}
+        >
+          Liczba polubień: <span>{likes?.length}</span>
+        </LikesAmount>
+        <DescriptionContainer>
+          <Link to={`/profile/${userId}`}>{username} </Link>
+          {description}
+        </DescriptionContainer>
+        <CommentsContainer>
+          {!!comments.length && (
+            <CommentsBox>
+              {comments.length >= 5 ?
+                <>
+                  {comments.slice(comments.length - 5, comments.length).map(comment => <Comment key={comment.commentId} commentData={comment} />)}
+                  <Button
+                    variant={ButtonVariants.text}
+                    onClick={() => setShowCommentsModal(true)}
+                  >
+                    Zobacz wszystkie komentarze ({comments.length})
+                  </Button>
+                </> :
+                <>
+                  {comments.map(comment => <Comment key={comment.commentId} commentData={comment} />)}
+                </>
+              }
+            </CommentsBox>
+          )}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              placeholder="Dodaj komentarz"
+              register={register}
+              name="comment"
+              isError={!!errors.comment?.message}
+            />
+            <Button
+              isLoading={loading}
+              loadingText="Dodaj"
+            >
+              Dodaj
+            </Button>
+          </form>
+          {errors.comment?.message && <ErrorMessage>{errors.comment.message as string}</ErrorMessage>}
+        </CommentsContainer>
+      </Wrapper>
+    </>
   )
 }

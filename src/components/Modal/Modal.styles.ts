@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
   z-index: 100;
   position: fixed;
   display: flex;
@@ -38,7 +39,7 @@ export const HeadingContainer = styled.div`
   }
 `
 
-export const ContentContainer = styled.div`
+export const ContentContainer = styled(motion.div)`
   margin: 16px;
   border-radius: 6px;
   max-width: 800px;
