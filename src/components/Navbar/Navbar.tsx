@@ -58,10 +58,11 @@ export const Navbar = () => {
               onClick={() => setShowAddPostModal(true)}
             />
             <Link to={`/profile/${user.uid}`} >
-              {userAvatar ?
-                <img src={userAvatar} alt="Ikona użytkownika" />
-                : <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
-              }
+              <img
+                src={userAvatar ? userAvatar : userDefaultAvatar}
+                alt="Ikona użytkownika"
+                loading="lazy"
+              />
             </Link>
             <Button
               onClick={handleLogOut}

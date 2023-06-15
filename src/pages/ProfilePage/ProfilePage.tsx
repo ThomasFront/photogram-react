@@ -92,10 +92,11 @@ export const ProfilePage = () => {
         />
       )}
       <UserDetailsContainer>
-        {specificUser?.userDetails.avatar ?
-          <img src={specificUser?.userDetails.avatar} alt="Ikona użytkownika" />
-          : <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
-        }
+        <img
+          src={specificUser?.userDetails.avatar ? specificUser?.userDetails.avatar : userDefaultAvatar}
+          alt="Ikona użytkownika"
+          loading="lazy"
+        />
         <DetailsBox>
           <DetailsTop>
             <h1>{specificUser?.userDetails.nick}</h1>

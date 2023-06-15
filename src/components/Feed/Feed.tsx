@@ -46,10 +46,11 @@ export const Feed = () => {
       </PostsContainer>
       <NewUsersContainer>
         <UserInfo to={`/profile/${user?.uid}`}>
-          {user?.avatar ?
-            <img src={user.avatar} alt="Ikona użytkownika" /> :
-            <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
-          }
+          <img
+            src={user?.avatar ? user.avatar : userDefaultAvatar}
+            alt="Ikona użytkownika"
+            loading="lazy"
+          />
           <p>{user?.nick}</p>
         </UserInfo>
         <span>Nowi użytkownicy</span>
@@ -59,10 +60,11 @@ export const Feed = () => {
             newUsers.map(({ uid, nick, avatar }) => (
               user?.uid !== uid && (
                 <Link key={uid} to={`/profile/${uid}`}>
-                  {avatar ?
-                    <img src={avatar} alt="Ikona użytkownika" /> :
-                    <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika" />
-                  }
+                  <img
+                    src={avatar ? avatar : userDefaultAvatar}
+                    alt="Ikona użytkownika"
+                    loading="lazy"
+                  />
                   <p>{nick}</p>
                 </Link>
               )

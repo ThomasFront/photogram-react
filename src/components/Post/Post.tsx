@@ -100,10 +100,11 @@ export const Post = ({ post }: PostProps) => {
       <TopHeading>
         <PostDetails>
           <Link to={`/profile/${userId}`}>
-            {userAvatar ?
-              <img src={userAvatar} alt="Domyślna ikona użytkownika." /> :
-              <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
-            }
+            <img
+              src={userAvatar ? userAvatar : userDefaultAvatar}
+              alt="Domyślna ikona użytkownika."
+              loading="lazy"
+            />
           </Link>
           <div>
             <Link to={`/profile/${userId}`}>{username}</Link>
@@ -116,6 +117,7 @@ export const Post = ({ post }: PostProps) => {
           src={image}
           alt={`Zdjęcie posta od użytkownika ${username}.`}
           onClick={() => setShowCommentsModal(true)}
+          loading="lazy"
         />
       </ImageContainer>
       <ActionsContainer>

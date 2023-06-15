@@ -24,7 +24,11 @@ export const UserPost = ({ post }: UserPostProps) => {
           </div>
         </DetailsContainer>
       )}
-      <img src={image} alt={`Zdjęcie użytkownika ${username}`} />
+      <img
+        src={image}
+        alt={`Zdjęcie użytkownika ${username}`}
+        loading="lazy"
+      />
     </Wrapper>
   )
 }

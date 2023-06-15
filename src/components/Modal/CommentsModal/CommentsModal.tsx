@@ -64,7 +64,11 @@ export const CommentsModal = ({ onClose, username, image, comments, likes, postI
       heading={`Post użytkownika ${username}`}
     >
       <Wrapper>
-        <img src={image} alt={`Zdjęcie użytkownia ${username}`} />
+        <img
+          src={image}
+          alt={`Zdjęcie użytkownia ${username}`}
+          loading="lazy"
+        />
         <LikesContainer>
           {isLiked ?
             <FillHeartIcon

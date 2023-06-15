@@ -54,10 +54,11 @@ export const User = ({ userId, onClose }: UserProps) => {
       <Link
         onClick={onClose}
         to={`/profile/${userId}`}>
-        {userAvatar ?
-          <img src={userAvatar} alt="Ikona użytkownika." /> :
-          <img src={userDefaultAvatar} alt="Domyślna ikona użytkownika." />
-        }
+        <img
+          src={userAvatar ? userAvatar : userDefaultAvatar}
+          alt="Ikona użytkownika."
+          loading="lazy"
+        />
       </Link>
       <Link
         onClick={onClose}
