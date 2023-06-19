@@ -1,7 +1,7 @@
 import { AnimationContainer, FormContainer, FormHeader, FormWrapper, NoAccountContainer, Wrapper } from "./Auth.styles"
 import Typewriter from 'typewriter-effect';
 import { Player } from '@lottiefiles/react-lottie-player';
-import authAnimation from '../../assets/animations/AuthAnimation.json'
+import authAnimation from '../../assets/animations/authAnimation.json'
 import { useState } from "react";
 import { RegisterForm } from "../Forms/RegisterForm";
 import { Button } from "../Button";
