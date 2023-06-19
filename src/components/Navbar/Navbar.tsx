@@ -18,11 +18,11 @@ export const Navbar = () => {
   const user = useSelector(userSelector)
   const themeMode = useSelector(themeModeSelector)
   const [showAddPostModal, setShowAddPostModal] = useState(false)
-  const [isDarkTheme, setDarkTheme] = useLocalStorage('darkTheme', false)
+  const [isDarkTheme, setIsDarkTheme] = useLocalStorage('darkTheme', false)
 
   const toggleTheme = () => {
     dispatch(setThemeMode(themeMode === ThemeModeVariants.dark ? ThemeModeVariants.light : ThemeModeVariants.dark))
-    setDarkTheme(themeMode === ThemeModeVariants.dark ? false : true)
+    setIsDarkTheme(themeMode === ThemeModeVariants.dark ? false : true)
   };
 
   const userAvatar = useMemo(() => {
