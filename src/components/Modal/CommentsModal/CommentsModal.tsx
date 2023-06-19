@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from "../../../styles/common"
 import { Link } from "react-router-dom"
 
-export const CommentsModal = ({ onClose, username, image, comments, likes, postId, description, userId }: PostModalProps) => {
+export const CommentsModal = ({ onClose, username, image, comments, likes, postId, description, userId, preview = false }: PostModalProps) => {
   const user = useSelector(userSelector)
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
@@ -70,13 +70,16 @@ export const CommentsModal = ({ onClose, username, image, comments, likes, postI
           loading="lazy"
         />
         <LikesContainer>
-          {isLiked ?
-            <FillHeartIcon
-              onClick={handleLikePost}
-            /> :
-            <OutlineHeartIcon
-              onClick={handleLikePost}
-            />
+          {!preview ?
+            isLiked ?
+              <FillHeartIcon
+                onClick={handleLikePost}
+              /> :
+              <OutlineHeartIcon
+                onClick={handleLikePost}
+              />
+            :
+            <></>
           }
           <p>Liczba polubień: <span>{likes?.length}</span></p>
         </LikesContainer>
@@ -90,20 +93,22 @@ export const CommentsModal = ({ onClose, username, image, comments, likes, postI
             {comments.map(comment => <Comment key={comment.commentId} commentData={comment} />)}
           </CommentsContainer>
         )}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Dodaj komentarz"
-            register={register}
-            name="comment"
-            isError={!!errors.comment?.message}
-          />
-          <Button
-            isLoading={loading}
-            loadingText="Dodaj"
-          >
-            Dodaj
-          </Button>
-        </form>
+        {!preview &&
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              placeholder="Dodaj komentarz"
+              register={register}
+              name="comment"
+              isError={!!errors.comment?.message}
+            />
+            <Button
+              isLoading={loading}
+              loadingText="Dodaj"
+            >
+              Dodaj
+            </Button>
+          </form>
+        }
         {errors.comment?.message && <ErrorMessage>{errors.comment.message as string}</ErrorMessage>}
       </Wrapper>
     </Modal>

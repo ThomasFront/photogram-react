@@ -9,4 +9,5 @@ export type PostModalProps = {
   postId: string
   description: string
   userId: string
+  preview?: boolean
 }

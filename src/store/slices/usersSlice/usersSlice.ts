@@ -1,4 +1,3 @@
-
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { LoadingVariants, UserType } from '../../../types/common'
 import { RootState } from '../../store'

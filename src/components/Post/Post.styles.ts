@@ -1,10 +1,5 @@
 import styled from "styled-components";
 import { AiFillHeart, AiOutlineHeart, AiOutlineComment } from 'react-icons/ai'
-import { motion } from "framer-motion";
-
-export const Wrapper = styled(motion.article)`
-
-`
 
 export const TopHeading = styled.div`
   margin-bottom: 8px;

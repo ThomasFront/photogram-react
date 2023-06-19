@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const FormWrapper = styled.form`
-
-`
-
 export const FileContainer = styled.div`
 
   input {

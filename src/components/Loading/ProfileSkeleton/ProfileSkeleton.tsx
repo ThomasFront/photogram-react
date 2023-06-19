@@ -15,7 +15,7 @@ export const ProfileSkeleton = () => {
       <SkeletonTheme baseColor={isDarkMode ? "#202020" : "#ebebeb"} highlightColor={isDarkMode ? "#444" : "#f5f5f5"}>
         <Skeleton height={180} />
         <SkeletonPostsWrapper>
-          {skeletonPosts.map((post, index) => <Skeleton key={index} height={300} />)}
+          {skeletonPosts.map((index) => <Skeleton key={index} height={300} />)}
         </SkeletonPostsWrapper>
       </SkeletonTheme>
     </Wrapper>

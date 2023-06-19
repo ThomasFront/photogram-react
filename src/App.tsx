@@ -15,7 +15,6 @@ function App() {
   const isDarkTheme = themeMode === ThemeModeVariants.dark;
 
   return (
-
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <GlobalStyles />
       <MainLayout>

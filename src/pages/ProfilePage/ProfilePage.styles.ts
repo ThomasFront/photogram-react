@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.section`
-
-`
-
 export const UserDetailsContainer = styled.div`
   display: flex;
   align-items: center;
@@ -39,6 +35,10 @@ export const DetailsTop = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  h1 {
+    font-weight: 500;
+  }
 
   button {
     padding: 8px 16px;

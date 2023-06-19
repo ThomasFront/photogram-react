@@ -1,4 +1,4 @@
-import { ActionsContainer, CommentIcon, CommentsBox, CommentsContainer, DescriptionContainer, FillHeartIcon, ImageContainer, LikesAmount, OutlineHeartIcon, PostDetails, TopHeading, Wrapper } from "./Post.styles"
+import { ActionsContainer, CommentIcon, CommentsBox, CommentsContainer, DescriptionContainer, FillHeartIcon, ImageContainer, LikesAmount, OutlineHeartIcon, PostDetails, TopHeading } from "./Post.styles"
 import { PostProps } from "./types"
 import userDefaultAvatar from '../../assets/images/userDefaultAvatar.png'
 import { handleDateFormat } from "../../utils"
@@ -19,6 +19,7 @@ import { ButtonVariants } from "../Button/types";
 import { CommentsModal } from "../Modal/CommentsModal";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { UserListModal } from "../Modal/UserListModal";
+import { motion } from "framer-motion";
 
 export const Post = ({ post }: PostProps) => {
   const { postId, username, image, description, timestamp, comments, likes, userId } = post
@@ -97,7 +98,7 @@ export const Post = ({ post }: PostProps) => {
           heading="Wszystkie polubienia"
         />
       )}
-      <Wrapper
+      <motion.article
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -183,7 +184,7 @@ export const Post = ({ post }: PostProps) => {
           </form>
           {errors.comment?.message && <ErrorMessage>{errors.comment.message as string}</ErrorMessage>}
         </CommentsContainer>
-      </Wrapper>
+      </motion.article>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Modal } from "../Modal"
-import { ButtonContainer, FileContainer, FormWrapper, ImageName, UsernameContainer } from "./EditProfileModal.styles"
+import { ButtonContainer, FileContainer, ImageName, UsernameContainer } from "./EditProfileModal.styles"
 import { EditProfileModalProps } from "./types"
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -69,7 +69,7 @@ export const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
       heading="Edytuj profil"
       onClose={onClose}
     >
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FileContainer>
           <p>Zmień zdjęcie profilowe</p>
           <label htmlFor="file-upload">
@@ -102,7 +102,7 @@ export const EditProfileModal = ({ onClose }: EditProfileModalProps) => {
             Zaktualizuj
           </Button>
         </ButtonContainer>
-      </FormWrapper>
+      </form>
       {changeAvatarError && <ErrorMessage>Zmiana zdjęcia nie powiodła się.</ErrorMessage>}
       {changeUsernameError && <ErrorMessage>Zmiana nazwy użytkownika nie powiodła się.</ErrorMessage>}
     </Modal>

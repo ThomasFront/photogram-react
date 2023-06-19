@@ -8,7 +8,7 @@ import { errorsSelector } from "../../store/slices/usersSlice/usersSlice"
 import { errorsSelector as userErrorsSelector } from "../../store/slices/userSlice/userSlice"
 import { loadingsSelector as userLoadingsSelector } from "../../store/slices/userSlice/userSlice"
 import { LoadingVariants } from "../../types/common"
-import { DetailsBottom, DetailsBox, DetailsTop, NoPostsInformation, PostsContainer, UserDetailsContainer, Wrapper } from "./ProfilePage.styles"
+import { DetailsBottom, DetailsBox, DetailsTop, NoPostsInformation, PostsContainer, UserDetailsContainer } from "./ProfilePage.styles"
 import userDefaultAvatar from '../../assets/images/userDefaultAvatar.png'
 import { Button } from "../../components/Button"
 import { followUser, userSelector } from "../../store/slices/userSlice/userSlice"
@@ -71,7 +71,7 @@ export const ProfilePage = () => {
   if (isGetUserLoading) return <ProfileSkeleton />
 
   return (
-    <Wrapper>
+    <section>
       {showEditProfileModal && (
         <EditProfileModal
           onClose={() => setShowEditProfileModal(false)}
@@ -133,6 +133,6 @@ export const ProfilePage = () => {
         </PostsContainer> :
         <NoPostsInformation>Brak postów</NoPostsInformation>
       }
-    </Wrapper>
+    </section>
   )
 }
