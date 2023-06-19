@@ -19,7 +19,11 @@ export const LogoContainer = styled.div`
 
   p {
     font-family: 'Copse', serif;
-    font-size: 24px;
+    font-size: 20px;
+
+    @media(min-width: 400px){
+      font-size: 24px;
+    }
 
     @media(min-width: 576px){
       font-size: 28px;
@@ -33,10 +37,14 @@ export const MenuContainer = styled.div`
   gap: 16px;
 
   svg {
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     transition: color 0.2s;
     color: ${({theme}) => theme.colors.text[90]};
+
+    @media(min-width: 400px){
+      font-size: 24px;
+    }
 
     @media(min-width: 576px){
       font-size: 30px;
@@ -61,8 +69,12 @@ export const MenuContainer = styled.div`
   }
 
   button {
-    padding: 8px 16px;
+    padding: 6px 12px;
     margin-left: 4px;
+
+    @media(min-width: 400px){
+      padding: 8px 16px;
+    }
 
     @media(min-width: 576px){
       padding: 8px 24px;

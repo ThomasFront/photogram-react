@@ -102,4 +102,9 @@ export const NoAccountContainer = styled.div`
   span {
     color: ${({theme}) => theme.colors.text[50]};
   }
+  
+  button,
+  span {
+    font-size: 15px;
+  }
 `
