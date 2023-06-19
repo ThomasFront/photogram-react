@@ -25,6 +25,10 @@ export const LogInForm = () => {
   })
 
   const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
+    defaultValues: {
+      email: 'john.doe@example.com',
+      password: 'example'
+    },
     resolver: yupResolver(schema)
   });
 
